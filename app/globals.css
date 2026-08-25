@@ -13,9 +13,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-}
 
-html {
   scroll-behavior: smooth;
 }
 
@@ -26,6 +24,9 @@ body {
   font-family: "Courier New", Courier, monospace;
 
   -webkit-font-smoothing: antialiased;
+
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
 }
 
 a {
@@ -40,6 +41,12 @@ a {
 
 .lumen-home {
   width: 100%;
+  height: 100vh;
+
+  overflow-y: auto;
+
+  scroll-snap-type: y mandatory;
+overscroll-behavior-y: contain;
 }
 
 .hero {
@@ -57,12 +64,89 @@ a {
 /* LUMEN */
 
 .hero-brand {
+  display: inline-flex;
+  align-items: flex-start;
+
+  width: fit-content;
+
   font-size: 15px;
   font-weight: 700;
 
   letter-spacing: 0.16em;
 }
 
+.brand-letter {
+  position: relative;
+
+  display: inline-block;
+}
+
+.brand-dot {
+  position: absolute;
+
+  top: 24px;
+  left: 50%;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #111111;
+
+  opacity: 0;
+
+  transform: translateX(-50%);
+}
+/* HERO BRAND DOTS — INTRO MOTION */
+
+.dot-l {
+  animation: dot-l-arrive 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dot-m {
+  animation: dot-m-arrive 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+}
+
+.dot-n {
+  animation: dot-n-arrive 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+}
+
+@keyframes dot-l-arrive {
+  from {
+    opacity: 0;
+    transform: translate(900px, 520px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes dot-m-arrive {
+  from {
+    opacity: 0;
+    transform: translate(420px, 260px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes dot-n-arrive {
+  from {
+    opacity: 0;
+    transform: translate(780px, -120px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
 
 /* MAIN HERO AREA */
 
@@ -231,14 +315,14 @@ a {
 .capabilities-section {
   width: 100%;
 
-  padding: 160px 40px;
+  padding: 100px 40px 70px;
 
   background: #f1f0eb;
   color: #111111;
 }
 
 .capabilities-intro {
-  margin-bottom: 120px;
+  margin-bottom: 70px;
 }
 
 .capabilities-intro h2 {
@@ -619,12 +703,436 @@ a {
 
   letter-spacing: 0.4em;
 }
-
-
 /* =========================================
-   MOBILE
+   CONTACT
    ========================================= */
 
+.contact-section {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 160px 40px 60px;
+
+  background: #f1f0eb;
+  color: #111111;
+}
+
+.contact-heading {
+  width: 100%;
+}
+
+.contact-heading h2 {
+  margin: 0;
+
+  max-width: 1400px;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(64px, 7.8vw, 128px);
+  font-weight: 400;
+
+  line-height: 0.95;
+  letter-spacing: -0.065em;
+}
+
+.contact-copy {
+  margin-top: 110px;
+
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+
+.contact-actions {
+  margin-top: 70px;
+}
+
+.contact-secondary {
+  margin-top: 35px;
+
+  display: flex;
+  gap: 25px;
+  align-items: center;
+
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.contact-footer {
+  margin-top: 120px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+/* =========================================
+   PROJECT INTAKE
+   ========================================= */
+
+.project-intake {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  width: 100%;
+  height: 100vh;
+
+  padding: 32px 40px 48px;
+
+  display: flex;
+  flex-direction: column;
+
+ background: #f1f0eb;
+color: #111111;
+}
+
+.intake-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.intake-close {
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+  color: #111111;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+
+  letter-spacing: 0.12em;
+
+  cursor: pointer;
+
+  opacity: 0.55;
+
+  transition: opacity 0.2s ease;
+}
+
+.intake-close:hover {
+  opacity: 1;
+}
+
+.intake-content {
+  width: 100%;
+  max-width: 1100px;
+
+  margin-top: auto;
+}
+
+.intake-step {
+  margin-bottom: 30px;
+
+  font-size: 10px;
+  letter-spacing: 0.12em;
+
+  opacity: 0.4;
+}
+
+.intake-content h2 {
+  margin: 0;
+
+  font-size: clamp(54px, 7vw, 108px);
+  font-weight: 400;
+
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.intake-question {
+  margin: 65px 0 24px;
+
+  font-size: 12px;
+  letter-spacing: 0.08em;
+
+  opacity: 0.55;
+}
+
+.intake-options {
+  width: 100%;
+
+  border-top: 1px solid rgba(17, 17, 17, 0.25);
+}
+
+.intake-option {
+  position: relative;
+
+  width: 100%;
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 18px 0;
+
+  border: 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.25);
+
+  background: transparent;
+
+  color: rgba(17, 17, 17, 0.55);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  font-weight: 400;
+
+  letter-spacing: 0.1em;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    color 0.18s ease,
+    text-shadow 0.18s ease;
+}
+
+
+.intake-option:hover {
+  color: #111111;
+
+  text-shadow:
+    0.35px 0 #111111,
+    -0.35px 0 #111111;
+}
+
+.intake-option::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 1px;
+
+  background: #111111;
+
+  transform: scaleX(0);
+  transform-origin: left center;
+
+  transition: transform 0.8s ease;
+
+  pointer-events: none;
+}
+
+.intake-option:hover::after {
+  transform: scaleX(1);
+}
+/* =========================================
+   INTAKE STEP 02
+   ========================================= */
+
+.intake-textarea {
+  width: 100%;
+  min-height: 180px;
+
+  margin-top: 25px;
+  padding: 24px 0;
+
+  border: 0;
+  border-top: 1px solid rgba(17, 17, 17, 0.25);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.25);
+
+  outline: none;
+  resize: none;
+
+  background: transparent;
+  color: #111111;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(14px, 1.15vw, 18px);
+  font-weight: 400;
+
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+}
+
+.intake-textarea::placeholder {
+  color: rgba(17, 17, 17, 0.25);
+}
+
+.intake-navigation {
+  width: 100%;
+
+  margin-top: 28px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.intake-nav-button {
+  position: relative;
+
+  padding: 10px 0;
+
+  border: 0;
+
+  background: transparent;
+  color: rgba(17, 17, 17, 0.55);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  font-weight: 400;
+
+  letter-spacing: 0.12em;
+
+  cursor: pointer;
+
+  transition:
+    color 0.18s ease,
+    text-shadow 0.18s ease;
+}
+
+.intake-nav-button:hover:not(:disabled) {
+  color: #111111;
+
+  text-shadow:
+    0.35px 0 #111111,
+    -0.35px 0 #111111;
+}
+
+.intake-nav-button:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+/* =========================================
+   INTAKE STEP 03
+   ========================================= */
+
+.intake-fields {
+  width: 100%;
+
+  margin-top: 60px;
+
+  border-top: 1px solid rgba(17, 17, 17, 0.25);
+}
+
+.intake-field {
+  width: 100%;
+
+  padding: 22px 0;
+
+  display: block;
+
+  border: 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.25);
+
+  outline: none;
+
+  background: transparent;
+  color: #111111;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  font-weight: 400;
+
+  letter-spacing: 0.04em;
+}
+
+.intake-field::placeholder {
+  color: rgba(17, 17, 17, 0.45);
+}
+
+.intake-field:focus {
+  border-bottom-color: #111111;
+}
+/* =========================================
+   PROJECT INTAKE — STEP 04
+   ========================================= */
+
+.intake-summary {
+  width: 100%;
+  margin-top: 60px;
+
+  border-top: 1px solid rgba(17, 17, 17, 0.25);
+}
+
+.intake-summary-row {
+  width: 100%;
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid rgba(17, 17, 17, 0.25);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+
+  letter-spacing: 0.1em;
+}
+
+.intake-summary-row span:first-child {
+  opacity: 0.45;
+}
+
+.intake-summary-row span:last-child {
+  text-align: right;
+  color: #111111;
+}
+
+
+/* SEND PROJECT */
+
+.intake-submit {
+  position: relative;
+
+  padding: 0 0 6px;
+
+  border: 0;
+  background: transparent;
+
+  color: #111111;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+
+  cursor: pointer;
+}
+
+
+/* underline animation */
+
+.intake-submit::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 1px;
+
+  background: #111111;
+
+  transform: scaleX(0);
+  transform-origin: left center;
+
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.intake-submit:hover::after {
+  transform: scaleX(1);
+}
 @media (max-width: 800px) {
 
   /* HERO */
@@ -822,4 +1330,207 @@ a {
     font-size: 9px;
   }
 
+}
+.project-start-button {
+  position: relative;
+
+  border: 0;
+  padding: 0;
+
+  background: transparent;
+  color: rgba(17, 17, 17, 0.65);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(16px, 1.8vw, 28px);
+  font-weight: 400;
+
+  letter-spacing: -0.04em;
+
+  cursor: pointer;
+
+  transition:
+    color 0.18s ease,
+    text-shadow 0.18s ease;
+}
+
+.project-start-button:hover {
+  color: #111111;
+
+  text-shadow:
+    0.45px 0 #111111,
+    -0.45px 0 #111111;
+}
+/* SCROLL SNAP SECTIONS */
+
+.hero,
+.projects-section,
+.capabilities-section,
+.approach-section,
+.founder-section,
+.contact-section,
+.final-reveal {
+  min-height: 100vh;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+/* =========================================
+   CAPABILITIES HEADLINE REVEAL
+   ========================================= */
+
+.capabilities-heading {
+  margin: 0;
+
+  max-width: 1100px;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(48px, 6.5vw, 105px);
+  font-weight: 400;
+
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.headline-static,
+.headline-reveal {
+  display: block;
+}
+
+.headline-reveal {
+  opacity: 0;
+
+  transform: translateY(16px);
+
+  transition:
+    opacity 1.6s ease,
+    transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  transition-delay: 0.12s;
+}
+
+.capabilities-heading.is-visible .headline-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* =========================================
+   FOUNDER
+   ========================================= */
+
+.founder-section {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 70px 40px 45px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #f1f0eb;
+  color: #111111;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.founder-label {
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.founder-content {
+  flex: 1;
+
+  display: grid;
+  grid-template-columns: 1.45fr 0.55fr;
+  gap: 80px;
+
+  align-items: center;
+}
+
+.founder-heading h2 {
+  margin: 0;
+
+  font-size: clamp(44px, 4.8vw, 78px);
+  font-weight: 400;
+
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+}
+
+.founder-heading h2 span {
+  display: block;
+}
+
+/* Founder heading reveal */
+
+.founder-reveal-line {
+  opacity: 0;
+  transform: translateY(22px);
+
+  transition:
+    opacity 1.6s ease,
+    transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-heading.is-visible .founder-reveal-line {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* second animated line enters slightly later */
+
+.founder-heading.is-visible .founder-reveal-line:nth-child(3) {
+  transition-delay: 0.18s;
+}
+.founder-bio {
+  max-width: 430px;
+
+  font-size: 13px;
+  line-height: 1.65;
+
+  letter-spacing: -0.02em;
+}
+
+.founder-bio p {
+  margin: 0 0 24px;
+}
+
+.founder-bio p:last-child {
+  margin-bottom: 0;
+}
+
+.founder-footer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  padding-top: 30px;
+
+  border-top: 1px solid rgba(17, 17, 17, 0.22);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+.founder-reveal-line {
+  display: block;
+
+  opacity: 0;
+  transform: translateY(16px);
+
+  transition:
+    opacity 1.6s ease,
+    transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-heading.is-visible .founder-reveal-line {
+  opacity: 1;
+  transform: translateY(0);
 }

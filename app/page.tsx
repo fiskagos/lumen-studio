@@ -1,4 +1,10 @@
 import CapabilityRow from "@/components/CapabilityRow";
+import ProjectStart from "@/components/ProjectStart";
+import RevealSecondLine from "@/components/RevealSecondLine";
+import CapabilitiesHeading from "@/components/CapabilitiesHeading";
+import FounderHeading from "@/components/FounderHeading";
+
+
 
 export default function Home() {
   return (
@@ -6,9 +12,26 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero">
-        <div className="hero-brand">
-          LUMEN
-        </div>
+       <div className="hero-brand">
+  <span className="brand-letter brand-l">
+    L
+    <span className="brand-dot dot-l" />
+  </span>
+
+  <span>U</span>
+
+  <span className="brand-letter brand-m">
+    M
+    <span className="brand-dot dot-m" />
+  </span>
+
+  <span>E</span>
+
+  <span className="brand-letter brand-n">
+    N
+    <span className="brand-dot dot-n" />
+  </span>
+</div>
 
         <div className="hero-content">
           <h1 className="hero-title">
@@ -19,22 +42,20 @@ export default function Home() {
             a template.
           </h1>
 
-          <div className="hero-project">
-            <div className="hero-project-placeholder">
-              PROJECT 01
-            </div>
-
-            <div className="hero-project-info">
-              <span>Alice Salvetz</span>
-              <span>2026</span>
-            </div>
-          </div>
+          
         </div>
 
-        <div className="hero-footer">
-          <span>DESIGN · DEVELOPMENT · COMMERCE · AI</span>
-          <span>ALICANTE · SPAIN</span>
-        </div>
+       <div className="hero-footer">
+  <span>DESIGN · DEVELOPMENT · COMMERCE · AI</span>
+
+  <a
+  href="https://www.linkedin.com/company/lumen-studio-design/"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  LINKEDIN
+</a>
+</div>
       </section>
 
 
@@ -121,50 +142,51 @@ export default function Home() {
 
 
       {/* CAPABILITIES / APPROACH */}
-      <section className="capabilities-section">
+<section className="capabilities-section">
 
-        <div className="capabilities-intro">
-          <h2>
-            Thoughtfully designed.
-            <br />
-            Seriously engineered.
-          </h2>
-        </div>
-
-      <div className="capabilities-list">
-
-  <CapabilityRow
-    title="DESIGN"
-    description="UX/UI · CREATIVE DIRECTION · RESPONSIVE DESIGN · PROTOTYPING"
+  <div className="capabilities-intro">
+  <CapabilitiesHeading
+    firstLine="Thoughtfully designed."
+    secondLine="Seriously engineered."
   />
-
-  <CapabilityRow
-    title="COMMERCE"
-    description="SHOPIFY · HEADLESS COMMERCE · STOREFRONTS · PAYMENTS"
-  />
-
-  <CapabilityRow
-    title="AI INTEGRATION"
-    description="AI EXPERIENCES · AUTOMATION · INTELLIGENT SEARCH · CUSTOM AI"
-  />
-
-  <CapabilityRow
-    title="ENGINEERING"
-    description="FRONTEND · CUSTOM DEVELOPMENT · APIs · INTEGRATIONS · CLOUD"
-  />
-
 </div>
-      </section>
+
+  <div className="capabilities-list">
+
+    <CapabilityRow
+      title="DESIGN"
+      description="UX/UI · CREATIVE DIRECTION · RESPONSIVE DESIGN · PROTOTYPING"
+    />
+
+    <CapabilityRow
+      title="COMMERCE"
+      description="SHOPIFY · HEADLESS COMMERCE · STOREFRONTS · PAYMENTS"
+    />
+
+    <CapabilityRow
+      title="AI INTEGRATION"
+      description="AI EXPERIENCES · AUTOMATION · INTELLIGENT SEARCH · CUSTOM AI"
+    />
+
+    <CapabilityRow
+      title="ENGINEERING"
+      description="FRONTEND · CUSTOM DEVELOPMENT · APIs · INTEGRATIONS · CLOUD"
+    />
+
+  </div>
+
+</section>
+
+
       {/* HUMAN APPROACH */}
       <section className="approach-section">
 
         <div className="approach-heading">
-          <h2>
-            Built with you.
-            <br />
-            Not just for you.
-          </h2>
-        </div>
+  <CapabilitiesHeading
+    firstLine="Built with you."
+    secondLine="Not just for you."
+  />
+</div>
 
       <div className="approach-process">
 
@@ -203,6 +225,100 @@ export default function Home() {
 </div>
 
       </section>
+
+      {/* FOUNDER */}
+<section className="founder-section">
+
+  <div className="founder-label">
+    THE PERSON BEHIND LUMEN
+  </div>
+
+  <div className="founder-content">
+
+    <FounderHeading />
+
+ <div className="founder-bio">
+  <p>
+    My background is in software engineering, but I’ve always been drawn to
+    the space where technology, design and human experience meet.
+  </p>
+
+  <p>
+    Years spent working across digital experience at Netcentric and Adobe,
+    and later building complex systems in the pharmaceutical world, shaped
+    the way I think about technology: not just how things look, but how they
+    work, scale and last.
+  </p>
+
+  <p>
+    But I’ve always been a creator at heart. There’s something remarkable
+    about taking an idea that exists only in someone’s mind and giving it
+    form, making something that didn’t exist before and could only belong
+    to that person.
+  </p>
+
+  <p>
+    I created Lumen to bring those two worlds together: the freedom of
+    creating something unique and the discipline of engineering it well.
+  </p>
+
+  <p>
+    Thoughtful design. Serious engineering.
+  </p>
+</div>
+
+  </div>
+
+  <div className="founder-footer">
+    <span>PAULA BANCIU</span>
+    <span>FOUNDER · DESIGNER · ENGINEER</span>
+  </div>
+
+</section>
+
+{/* CONTACT */}
+<section className="contact-section">
+
+  <div className="contact-heading">
+  <CapabilitiesHeading
+    firstLine="Have an idea?"
+    secondLine="Let's give it form."
+  />
+</div>
+
+  <div className="contact-copy">
+    <p>
+      Tell us what you're thinking.
+      <br />
+      It doesn't need to be figured out yet.
+    </p>
+  </div>
+
+  <div className="contact-actions">
+
+  <ProjectStart />
+
+  <div className="contact-secondary">
+    <span>OR JUST SAY HELLO</span>
+
+    <a href="mailto:hello@lumenstudio.com">
+      HELLO@LUMENSTUDIO.COM
+    </a>
+  </div>
+
+</div>
+
+  <div className="contact-footer">
+    <a
+      href="https://www.linkedin.com/company/lumen-studio-design/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      
+    </a>
+  </div>
+
+</section>
 
       {/* FINAL LUMEN REVEAL */}
       <section className="final-reveal">
