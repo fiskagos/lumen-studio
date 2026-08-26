@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useRef, useState} from "react";
+import useInView from "@/hooks/useInView";
 
 type CapabilitiesHeadingProps = {
   firstLine: string;
@@ -11,31 +11,13 @@ export default function CapabilitiesHeading({
   firstLine,
   secondLine,
 }: CapabilitiesHeadingProps) {
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const heading = headingRef.current;
-
-    if (!heading) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.5,
-      }
-    );
-
-    observer.observe(heading);
-
-    return () => observer.disconnect();
-  }, []);
+  const {ref, isVisible} = useInView<HTMLHeadingElement>({
+    threshold: 0.5,
+  });
 
   return (
     <h2
-      ref={headingRef}
+      ref={ref}
       className={`capabilities-heading ${
         isVisible ? "is-visible" : ""
       }`}

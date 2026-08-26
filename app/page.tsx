@@ -1,9 +1,9 @@
-import CapabilityRow from "@/components/CapabilityRow";
+
 import ProjectStart from "@/components/ProjectStart";
-import RevealSecondLine from "@/components/RevealSecondLine";
+
 import CapabilitiesHeading from "@/components/CapabilitiesHeading";
 import FounderHeading from "@/components/FounderHeading";
-
+import CapabilitiesSection from "@/components/CapabilitiesSection";
 
 
 export default function Home() {
@@ -151,29 +151,7 @@ export default function Home() {
   />
 </div>
 
-  <div className="capabilities-list">
-
-    <CapabilityRow
-      title="DESIGN"
-      description="UX/UI · CREATIVE DIRECTION · RESPONSIVE DESIGN · PROTOTYPING"
-    />
-
-    <CapabilityRow
-      title="COMMERCE"
-      description="SHOPIFY · HEADLESS COMMERCE · STOREFRONTS · PAYMENTS"
-    />
-
-    <CapabilityRow
-      title="AI INTEGRATION"
-      description="AI EXPERIENCES · AUTOMATION · INTELLIGENT SEARCH · CUSTOM AI"
-    />
-
-    <CapabilityRow
-      title="ENGINEERING"
-      description="FRONTEND · CUSTOM DEVELOPMENT · APIs · INTEGRATIONS · CLOUD"
-    />
-
-  </div>
+  <CapabilitiesSection />
 
 </section>
 
@@ -286,13 +264,13 @@ export default function Home() {
   />
 </div>
 
-  <div className="contact-copy">
-    <p>
-      Tell us what you're thinking.
-      <br />
-      It doesn't need to be figured out yet.
-    </p>
-  </div>
+ <div className="contact-copy">
+  <p>
+    Tell us what you&apos;re thinking.
+    <br />
+    It doesn&apos;t need to be figured out yet.
+  </p>
+</div>
 
   <div className="contact-actions">
 

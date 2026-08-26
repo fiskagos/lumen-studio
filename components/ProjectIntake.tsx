@@ -6,12 +6,24 @@ type ProjectIntakeProps = {
   onClose: () => void;
 };
 
+const projectTypes = [
+  "A WEBSITE",
+  "AN ONLINE STORE",
+  "A BRAND",
+  "SOMETHING ELSE",
+] as const;
+
+type ProjectType = (typeof projectTypes)[number];
+type IntakeStep = 1 | 2 | 3 | 4;
+
 export default function ProjectIntake({
   onClose,
 }: ProjectIntakeProps) {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<IntakeStep>(1);
 
-  const [projectType, setProjectType] = useState("");
+  const [projectType, setProjectType] =
+    useState<ProjectType | null>(null);
+
   const [projectIdea, setProjectIdea] = useState("");
 
   const [name, setName] = useState("");
@@ -19,21 +31,13 @@ export default function ProjectIntake({
   const [website, setWebsite] = useState("");
   const [budget, setBudget] = useState("");
 
-  const projectTypes = [
-    "A WEBSITE",
-    "AN ONLINE STORE",
-    "A BRAND",
-    "SOMETHING ELSE",
-  ];
-
-  function selectProjectType(type: string) {
+  function selectProjectType(type: ProjectType) {
     setProjectType(type);
     setStep(2);
   }
 
   return (
     <div className="project-intake">
-
       <div className="intake-top">
         <span>LUMEN</span>
 
@@ -47,8 +51,8 @@ export default function ProjectIntake({
       </div>
 
       <div className="intake-content">
-
         {/* STEP 01 */}
+
         {step === 1 && (
           <>
             <div className="intake-step">
@@ -56,7 +60,7 @@ export default function ProjectIntake({
             </div>
 
             <h2>
-              Let's start
+              Let&apos;s start
               <br />
               with the idea.
             </h2>
@@ -80,8 +84,8 @@ export default function ProjectIntake({
           </>
         )}
 
-
         {/* STEP 02 */}
+
         {step === 2 && (
           <>
             <div className="intake-step">
@@ -95,18 +99,19 @@ export default function ProjectIntake({
             </h2>
 
             <p className="intake-question">
-              It can be rough. That's usually where good things start.
+              It can be rough. That&apos;s usually where good things start.
             </p>
 
             <textarea
               className="intake-textarea"
               value={projectIdea}
-              onChange={(event) => setProjectIdea(event.target.value)}
+              onChange={(event) =>
+                setProjectIdea(event.target.value)
+              }
               placeholder="START WRITING HERE..."
             />
 
             <div className="intake-navigation">
-
               <button
                 type="button"
                 className="intake-nav-button"
@@ -123,13 +128,12 @@ export default function ProjectIntake({
               >
                 CONTINUE
               </button>
-
             </div>
           </>
         )}
 
-
         {/* STEP 03 */}
+
         {step === 3 && (
           <>
             <div className="intake-step">
@@ -143,13 +147,14 @@ export default function ProjectIntake({
             </h2>
 
             <div className="intake-fields">
-
               <input
                 className="intake-field"
                 type="text"
                 placeholder="YOUR NAME"
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) =>
+                  setName(event.target.value)
+                }
               />
 
               <input
@@ -157,7 +162,9 @@ export default function ProjectIntake({
                 type="email"
                 placeholder="EMAIL"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(event) =>
+                  setEmail(event.target.value)
+                }
               />
 
               <input
@@ -165,7 +172,9 @@ export default function ProjectIntake({
                 type="url"
                 placeholder="EXISTING WEBSITE — OPTIONAL"
                 value={website}
-                onChange={(event) => setWebsite(event.target.value)}
+                onChange={(event) =>
+                  setWebsite(event.target.value)
+                }
               />
 
               <input
@@ -173,13 +182,13 @@ export default function ProjectIntake({
                 type="text"
                 placeholder="BUDGET RANGE — OPTIONAL"
                 value={budget}
-                onChange={(event) => setBudget(event.target.value)}
+                onChange={(event) =>
+                  setBudget(event.target.value)
+                }
               />
-
             </div>
 
             <div className="intake-navigation">
-
               <button
                 type="button"
                 className="intake-nav-button"
@@ -196,13 +205,12 @@ export default function ProjectIntake({
               >
                 CONTINUE
               </button>
-
             </div>
           </>
         )}
 
-
         {/* STEP 04 */}
+
         {step === 4 && (
           <>
             <div className="intake-step">
@@ -216,7 +224,6 @@ export default function ProjectIntake({
             </h2>
 
             <div className="intake-summary">
-
               <div className="intake-summary-row">
                 <span>PROJECT</span>
                 <span>{projectType}</span>
@@ -245,11 +252,9 @@ export default function ProjectIntake({
                   <span>{budget}</span>
                 </div>
               )}
-
             </div>
 
             <div className="intake-navigation">
-
               <button
                 type="button"
                 className="intake-nav-button"
@@ -264,13 +269,10 @@ export default function ProjectIntake({
               >
                 SEND PROJECT
               </button>
-
             </div>
           </>
         )}
-
       </div>
-
     </div>
   );
 }

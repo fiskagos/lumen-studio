@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useRef, useState} from "react";
+import useInView from "@/hooks/useInView";
 
 type RevealSecondLineProps = {
   children: React.ReactNode;
@@ -9,35 +9,17 @@ type RevealSecondLineProps = {
 export default function RevealSecondLine({
   children,
 }: RevealSecondLineProps) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current;
-
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      {
-        threshold: 0.35,
-      }
-    );
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
+  const {ref, isVisible} = useInView<HTMLSpanElement>({
+    threshold: 0.35,
+    once: true,
+  });
 
   return (
     <span
       ref={ref}
-      className={`reveal-second-line ${visible ? "is-visible" : ""}`}
+      className={`reveal-second-line ${
+        isVisible ? "is-visible" : ""
+      }`}
     >
       {children}
     </span>

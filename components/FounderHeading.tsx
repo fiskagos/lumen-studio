@@ -1,32 +1,16 @@
 "use client";
 
-import {useEffect, useRef, useState} from "react";
+import useInView from "@/hooks/useInView";
 
 export default function FounderHeading() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.35,
-      },
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const {ref, isVisible} = useInView<HTMLDivElement>({
+    threshold: 0.35,
+  });
 
   return (
     <div
       ref={ref}
-      className={`founder-heading ${visible ? "is-visible" : ""}`}
+      className={`founder-heading ${isVisible ? "is-visible" : ""}`}
     >
       <h2>
         <span>I SHAPE IDEAS.</span>
