@@ -39,7 +39,26 @@ export default function ProjectIntake({
   return (
     <div className="project-intake">
       <div className="intake-top">
-        <span>LUMEN</span>
+        <div className="intake-brand">
+  <span className="intake-brand-letter">
+    L
+    <span className="intake-brand-dot" />
+  </span>
+
+  <span>U</span>
+
+  <span className="intake-brand-letter">
+    M
+    <span className="intake-brand-dot" />
+  </span>
+
+  <span>E</span>
+
+  <span className="intake-brand-letter">
+    N
+    <span className="intake-brand-dot" />
+  </span>
+</div>
 
         <button
           type="button"

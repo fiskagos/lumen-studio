@@ -12,7 +12,7 @@
 :root {
   /* COLORS */
   --color-bg: #f1f0eb;
-  --color-bg-alt: #e8e6df;
+--color-bg-alt: #f1f0eb;
   --color-text: #111111;
   --color-line: rgba(17, 17, 17, 0.28);
   --color-border: rgba(17, 17, 17, 0.25);
@@ -40,8 +40,15 @@ html,
 body {
   margin: 0;
   padding: 0;
+}
 
+html {
   scroll-behavior: smooth;
+
+  scroll-snap-type: y mandatory;
+  scroll-snap-stop: always;
+
+  overflow-y: scroll;
 }
 
 body {
@@ -52,8 +59,7 @@ body {
 
   -webkit-font-smoothing: antialiased;
 
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+  overflow: visible;
 }
 
 a {
@@ -66,15 +72,6 @@ a {
    HERO
    ========================================= */
 
-.lumen-home {
-  width: 100%;
-  height: 100vh;
-
-  overflow-y: auto;
-
-  scroll-snap-type: y mandatory;
-  overscroll-behavior-y: contain;
-}
 
 .hero {
   min-height: 100vh;
@@ -999,7 +996,43 @@ a {
 .intake-close:hover {
   opacity: 1;
 }
+/* INTAKE LUMEN BRAND */
 
+.intake-brand {
+  display: flex;
+  align-items: center;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  font-weight: 700;
+
+  line-height: 1;
+  letter-spacing: 0.14em;
+}
+
+
+.intake-brand-letter {
+  position: relative;
+
+  display: inline-block;
+}
+
+
+.intake-brand-dot {
+  position: absolute;
+
+  left: 50%;
+  bottom: -8px;
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: #111111;
+
+  transform: translateX(-50%);
+}
 
 /* CONTENT */
 
@@ -1541,15 +1574,19 @@ a {
     0.45px 0 var(--color-text),
     -0.45px 0 var(--color-text);
 }
-/* SCROLL SNAP SECTIONS */
+/* =========================================
+   SECTION SCROLL SNAP
+   ========================================= */
 
-.hero,
+.lumen-intro-hero,
 .projects-section,
 .capabilities-section,
 .approach-section,
 .founder-section,
 .contact-section,
 .final-reveal {
+  width: 100%;
+
   min-height: 100vh;
 
   scroll-snap-align: start;
@@ -1713,4 +1750,1150 @@ a {
   font-weight: 700;
 
   letter-spacing: 0.12em;
+}
+/* ==========================================
+   LUMEN INTRO HERO
+   ========================================== */
+
+.lumen-intro-hero {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+
+  overflow: hidden;
+
+  background: var(--color-bg);
+  color: #111111;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+}
+
+
+/* ==========================================
+   INTRO STAGE
+   ========================================== */
+
+.lumen-intro-stage {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+.lumen-intro-word {
+  margin: 0;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: clamp(86px, 11vw, 180px);
+
+  font-weight: 400;
+
+  line-height: 0.85;
+
+  white-space: nowrap;
+
+  will-change:
+    transform,
+    opacity,
+    filter,
+    letter-spacing;
+}
+
+
+/* ==========================================
+   OPTION 3 — TRACKING
+   ========================================== */
+
+.lumen-intro-tracking {
+  animation:
+    lumenTracking
+    2.5s
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+
+@keyframes lumenTracking {
+
+  0% {
+    opacity: 0;
+
+    letter-spacing: 0.7em;
+
+    transform: scale(0.96);
+
+    filter: blur(6px);
+  }
+
+
+  18% {
+    opacity: 1;
+  }
+
+
+  42% {
+    opacity: 1;
+
+    letter-spacing: -0.07em;
+
+    transform: scale(1);
+
+    filter: blur(0);
+  }
+
+
+  70% {
+    opacity: 1;
+
+    letter-spacing: -0.07em;
+
+    transform: scale(1);
+  }
+
+
+  100% {
+    opacity: 0;
+
+    letter-spacing: -0.07em;
+
+    transform:
+      translateY(70px)
+      scale(0.97);
+
+    filter: blur(4px);
+  }
+}
+
+
+/* ==========================================
+   OPTION 4 — OVERSIZED CROP
+   ========================================== */
+
+.lumen-intro-oversize {
+  animation:
+    lumenOversize
+    2.6s
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+
+@keyframes lumenOversize {
+
+  0% {
+    opacity: 0;
+
+    transform: scale(2.8);
+
+    filter: blur(5px);
+
+    letter-spacing: -0.1em;
+  }
+
+
+  15% {
+    opacity: 1;
+  }
+
+
+  42% {
+    opacity: 1;
+
+    transform: scale(1);
+
+    filter: blur(0);
+
+    letter-spacing: -0.07em;
+  }
+
+
+  70% {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+
+  100% {
+    opacity: 0;
+
+    transform: scale(0.72);
+
+    filter: blur(5px);
+  }
+}
+
+
+/* ==========================================
+   OPTION 5 — HORIZONTAL PASS
+   ========================================== */
+
+.lumen-intro-pass {
+  animation:
+    lumenHorizontalPass
+    2.8s
+    cubic-bezier(0.65, 0, 0.35, 1)
+    forwards;
+}
+
+
+@keyframes lumenHorizontalPass {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateX(70vw);
+
+    letter-spacing: -0.07em;
+  }
+
+
+  18% {
+    opacity: 1;
+  }
+
+
+  42% {
+    opacity: 1;
+
+    transform:
+      translateX(0);
+  }
+
+
+  68% {
+    opacity: 1;
+
+    transform:
+      translateX(0);
+  }
+
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateX(-70vw);
+  }
+}
+
+
+/* ==========================================
+   FINAL STATEMENT
+   ========================================== */
+
+.lumen-final-statement {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.lumen-final-statement h1 {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: clamp(54px, 6vw, 96px);
+
+  font-weight: 400;
+
+  line-height: 0.94;
+
+  letter-spacing: -0.06em;
+
+  text-align: left;
+}
+
+
+.lumen-final-statement h1 span {
+  display: block;
+
+  opacity: 0;
+
+  animation:
+    lumenFinalReveal
+    1.5s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
+}
+
+
+.lumen-final-statement h1 span:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+
+.lumen-final-statement h1 span:nth-child(2) {
+  animation-delay: 0.28s;
+}
+
+
+.lumen-final-statement h1 span:nth-child(3) {
+  animation-delay: 0.41s;
+}
+
+
+@keyframes lumenFinalReveal {
+
+  0% {
+    opacity: 0;
+
+    transform: translateY(24px);
+
+    filter: blur(5px);
+  }
+
+
+  100% {
+    opacity: 1;
+
+    transform: translateY(0);
+
+    filter: blur(0);
+  }
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 700px) {
+
+  .lumen-intro-word {
+    font-size:
+      clamp(54px, 15vw, 96px);
+  }
+
+
+  .lumen-final-statement h1 {
+    font-size:
+      clamp(42px, 12vw, 68px);
+  }
+
+}
+/* ==========================================
+   LUMEN PAGE FLOW FIX
+   ========================================== */
+/* ==========================================
+   LUMEN PAGE FLOW FIX
+   ========================================== */
+
+.lumen-home {
+  display: block;
+
+  width: 100%;
+  min-height: 100vh;
+
+  overflow: visible;
+}
+
+
+/* HERO = FULL FIRST VIEWPORT */
+
+.lumen-intro-hero {
+  position: relative !important;
+  display: block !important;
+
+  width: 100% !important;
+
+  height: 100vh !important;
+  min-height: 100vh !important;
+
+  box-sizing: border-box;
+
+  margin: 0 !important;
+
+  z-index: 1;
+}
+
+
+/* PROJECTS START AFTER THE HERO */
+
+.projects-section {
+  position: relative !important;
+
+  top: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+
+  transform: none !important;
+
+  margin-top: 0 !important;
+
+  width: 100%;
+
+  z-index: 2;
+}
+
+
+
+/* PROJECTS START AFTER THE HERO */
+
+.projects-section {
+  position: relative !important;
+
+  top: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+
+  transform: none !important;
+
+  margin-top: 0 !important;
+
+  width: 100%;
+
+  z-index: 2;
+}
+/* ==========================================
+   TRACKING + OVERSIZE → FOOTER
+   ========================================== */
+
+.lumen-intro-trackingOversize {
+  animation:
+    lumenTrackingOversize
+    1.7s
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+
+@keyframes lumenTrackingOversize {
+
+  0% {
+    opacity: 0;
+
+    transform: scale(2.4);
+
+    letter-spacing: 0.45em;
+
+    filter: blur(8px);
+  }
+
+
+  10% {
+    opacity: 1;
+  }
+
+
+  /* WORD ASSEMBLES */
+
+  55% {
+    opacity: 1;
+
+    transform: scale(1);
+
+    letter-spacing: -0.07em;
+
+    filter: blur(0);
+  }
+
+
+  /* VERY SHORT HOLD */
+
+  63% {
+    opacity: 1;
+
+    transform: scale(1);
+
+    letter-spacing: -0.07em;
+
+    filter: blur(0);
+  }
+
+
+  /* RETREAT TO FOOTER */
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate(
+        var(--target-x),
+        var(--target-y)
+      )
+      scale(
+        var(--target-scale)
+      );
+
+    letter-spacing: -0.02em;
+
+    filter: blur(0);
+  }
+}
+
+/* ==========================================
+   FIXED LUMEN BRAND
+   ========================================== */
+
+.lumen-intro-hero .lumen-hero-brand {
+  position: fixed;
+
+  top: 32px;
+  right: 40px;
+  left: auto;
+
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  font-weight: 700;
+
+  line-height: 1;
+  letter-spacing: 0.08em;
+
+  color: #111111;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: opacity 0.35s ease;
+}
+
+
+/* LETTERS HOLDING THE THREE DOTS */
+
+.lumen-intro-hero .lumen-brand-letter {
+  position: relative;
+
+  display: inline-block;
+}
+
+/* ==========================================
+   TRAVELLING BRAND DOTS
+   ========================================== */
+
+.lumen-intro-hero .lumen-brand-dot {
+  position: absolute;
+
+  left: 50%;
+  bottom: -9px;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #111111;
+
+  opacity: 0;
+
+  transform: translateX(-50%);
+
+  will-change: transform, opacity;
+}
+
+
+/* START ANIMATION AFTER FINAL STATEMENT */
+
+.lumen-hero-brand.dots-visible .lumen-brand-dot {
+  animation:
+    lumenDotTravel
+    2.4s
+    cubic-bezier(0.65, 0, 0.35, 1)
+    forwards;
+}
+
+
+/* DOT 1 — L */
+
+.lumen-hero-brand.dots-visible .lumen-brand-dot-1 {
+  --dot-start-x: 62vw;
+  --dot-start-y: 68vh;
+
+  --dot-mid-x: 38vw;
+  --dot-mid-y: 42vh;
+
+  --dot-near-x: 8vw;
+  --dot-near-y: 8vh;
+
+  animation-delay: 1.3s;
+}
+
+
+/* DOT 2 — M */
+
+.lumen-hero-brand.dots-visible .lumen-brand-dot-2 {
+  --dot-start-x: 42vw;
+  --dot-start-y: 48vh;
+
+  --dot-mid-x: 26vw;
+  --dot-mid-y: 32vh;
+
+  --dot-near-x: 6vw;
+  --dot-near-y: 7vh;
+
+  animation-delay: 1.65s;
+}
+
+
+/* DOT 3 — N */
+
+.lumen-hero-brand.dots-visible .lumen-brand-dot-3 {
+  --dot-start-x: 76vw;
+  --dot-start-y: 26vh;
+
+  --dot-mid-x: 46vw;
+  --dot-mid-y: 19vh;
+
+  --dot-near-x: 10vw;
+  --dot-near-y: 5vh;
+
+  animation-delay: 2s;
+}
+
+
+/* DOT TRAVEL */
+
+@keyframes lumenDotTravel {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(
+        var(--dot-start-x),
+        var(--dot-start-y)
+      );
+  }
+
+  8% {
+    opacity: 1;
+
+    transform:
+      translate(
+        var(--dot-start-x),
+        var(--dot-start-y)
+      );
+  }
+
+  35% {
+    opacity: 1;
+
+    transform:
+      translate(
+        var(--dot-mid-x),
+        var(--dot-mid-y)
+      );
+  }
+
+  72% {
+    opacity: 1;
+
+    transform:
+      translate(
+        var(--dot-near-x),
+        var(--dot-near-y)
+      );
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================
+   HERO FOOTER CAPABILITIES
+   ========================================== */
+
+.lumen-hero-footer-capabilities {
+  position: absolute;
+
+  left: 40px;
+  bottom: 28px;
+
+  z-index: 40;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  font-family: "Courier New", Courier, monospace;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+  color: #111111;
+}
+
+
+.lumen-hero-capability-group {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+
+.lumen-hero-capability,
+.lumen-hero-separator {
+  opacity: 0;
+
+  transition:
+    opacity 0.08s linear;
+}
+
+
+.lumen-hero-capability.is-visible,
+.lumen-hero-separator.is-visible {
+  opacity: 1;
+}
+
+.capability-anchor {
+  width: 100%;
+}
+
+/* LINKEDIN */
+
+.lumen-intro-hero .lumen-hero-linkedin {
+  position: absolute;
+
+  right: 40px;
+  bottom: 28px;
+
+  z-index: 50;
+
+  display: block;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: 0.04em;
+
+  color: #111111;
+
+  text-decoration: none;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .lumen-hero-footer-capabilities {
+    left: 20px;
+    bottom: 22px;
+
+    gap: 4px;
+
+    font-size: 9px;
+  }
+
+
+  .lumen-hero-capability-group {
+    gap: 4px;
+  }
+
+}
+/* =========================================
+   APPROACH STATEMENT
+   ========================================= */
+
+.approach-statement {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 54px;
+
+  text-align: center;
+}
+
+
+/* FLIP */
+
+.approach-flip-stage {
+  width: 100%;
+
+  min-height: clamp(130px, 13vw, 210px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1200px;
+
+  overflow: hidden;
+}
+
+
+.approach-flip-text {
+  width: 100%;
+  max-width: 1200px;
+
+  text-align: center;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: clamp(64px, 7vw, 112px);
+
+  font-weight: 400;
+
+  line-height: 0.94;
+
+  letter-spacing: -0.065em;
+
+  transform-origin: center center;
+
+  backface-visibility: hidden;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+
+/* CLOSING */
+
+.approach-statement-closing {
+  width: 100%;
+
+  margin: 0;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  letter-spacing: -0.025em;
+
+  opacity: 0.65;
+}
+
+
+/* =========================================
+   LEFT
+   ========================================= */
+
+.approach-statement-left {
+  display: flex;
+  align-items: flex-end;
+}
+
+
+.approach-statement-title {
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: clamp(24px, 2.4vw, 38px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.055em;
+}
+
+
+.approach-statement-title span {
+  display: block;
+}
+
+
+/* =========================================
+   RIGHT
+   ========================================= */
+
+.approach-statement-right {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-end;
+
+  gap: 50px;
+
+  padding-bottom: 3px;
+}
+
+
+/* =========================================
+   SPLIT-FLAP STAGE
+   ========================================= */
+
+.approach-flip-stage {
+  min-height: clamp(110px, 11vw, 180px);
+
+  display: flex;
+  align-items: center;
+
+  perspective: 1200px;
+
+  overflow: hidden;
+}
+
+
+/* MAIN ROTATING MESSAGE */
+
+.approach-flip-text {
+  max-width: 850px;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: clamp(42px, 5vw, 78px);
+
+  font-weight: 400;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.065em;
+
+  transform-origin: center center;
+
+  backface-visibility: hidden;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+
+/* OLD CLOCK / DEPARTURE BOARD FLIP OUT */
+
+.approach-flip-text.is-flipping-out {
+  animation:
+    approachFlipOut
+    320ms
+    cubic-bezier(0.55, 0, 1, 0.45)
+    forwards;
+}
+
+
+/* NEW MESSAGE FLIPS INTO PLACE */
+
+.approach-flip-text.is-flipping-in {
+  animation:
+    approachFlipIn
+    420ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+}
+
+
+@keyframes approachFlipOut {
+
+  0% {
+    opacity: 1;
+
+    transform:
+      rotateX(0deg)
+      translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      rotateX(-88deg)
+      translateY(-8px);
+  }
+
+}
+
+
+@keyframes approachFlipIn {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      rotateX(88deg)
+      translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      rotateX(0deg)
+      translateY(0);
+  }
+
+}
+
+
+/* =========================================
+   CLOSING
+   ========================================= */
+
+.approach-statement-closing {
+  max-width: 360px;
+
+  margin: 0;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  letter-spacing: -0.025em;
+}
+
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .approach-flip-text {
+    animation: none !important;
+
+    transform: none !important;
+
+    opacity: 1 !important;
+  }
+
+}
+
+/* =========================================
+   FINAL LUMEN
+   ========================================= */
+
+.final-reveal {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: var(--color-bg);
+}
+
+
+/* MAIN WORDMARK */
+
+.final-reveal-brand {
+  display: flex;
+  align-items: center;
+
+  font-family: "Courier New", Courier, monospace;
+
+  font-size: clamp(120px, 23vw, 360px);
+
+  font-weight: 400;
+
+  line-height: 0.9;
+
+  letter-spacing: -0.04em;
+
+  color: #111111;
+}
+
+
+/* LETTERS WITH DOTS */
+
+.final-reveal-letter {
+  position: relative;
+
+  display: inline-block;
+}
+
+
+/* DOTS */
+
+.final-reveal-dot {
+  position: absolute;
+
+  left: 50%;
+  bottom: -0.11em;
+
+  width: 0.035em;
+  height: 0.035em;
+
+  min-width: 6px;
+  min-height: 6px;
+
+  border-radius: 50%;
+
+  background: #111111;
+
+  transform: translateX(-50%);
+}
+
+
+/* HIDE THE SMALL PERSISTENT LOGO */
+
+body:has(.final-reveal.is-visible)
+.lumen-intro-hero
+.lumen-hero-brand {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .final-reveal-brand {
+    font-size: 22vw;
+
+    letter-spacing: -0.04em;
+  }
+
 }

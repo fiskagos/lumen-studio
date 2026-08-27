@@ -1,10 +1,11 @@
 "use client";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CapabilityRow from "./CapabilityRow";
 
 const capabilities = [
   {
+    id: "design",
     title: "DESIGN",
     preview:
       "DIGITAL EXPERIENCES SHAPED AROUND THE IDEA, NOT AROUND A TEMPLATE.",
@@ -20,6 +21,7 @@ const capabilities = [
       "We shape how your digital presence looks, feels and works before a line of production code is written. From structure and page flow to typography, layout, interaction and responsive behaviour, we design the experience around the idea and the people using it.",
   },
   {
+    id: "commerce",
     title: "COMMERCE",
     preview:
       "THOUGHTFUL STOREFRONTS BUILT TO MAKE DISCOVERY AND BUYING FEEL EFFORTLESS.",
@@ -35,6 +37,7 @@ const capabilities = [
       "We design commerce around the way people actually discover, understand and buy your work or product. The goal is not simply to create a shop, but to make the path from interest to purchase feel clear and natural.",
   },
   {
+    id: "ai",
     title: "AI",
     preview:
       "USEFUL INTELLIGENCE WOVEN INTO THE EXPERIENCE WHERE IT GENUINELY ADDS VALUE.",
@@ -50,6 +53,7 @@ const capabilities = [
       "We use AI where it removes friction, saves time or creates a genuinely better experience. The technology should serve the product and the people using it, not exist simply because AI happens to be fashionable this decade.",
   },
   {
+    id: "engineering",
     title: "ENGINEERING",
     preview:
       "CAREFULLY ENGINEERED SYSTEMS BUILT FOR PERFORMANCE, FLEXIBILITY AND LONGEVITY.",
@@ -66,40 +70,103 @@ const capabilities = [
   },
 ] as const;
 
-type CapabilityTitle = (typeof capabilities)[number]["title"];
+type CapabilityTitle =
+  (typeof capabilities)[number]["title"];
 
 export default function CapabilitiesSection() {
   const [activeCapability, setActiveCapability] =
     useState<CapabilityTitle | null>(null);
 
+  /*
+    Open the correct capability when arriving
+    from one of the hero footer links.
+  */
+
+ useEffect(() => {
+  function handleCapabilityNavigation(
+    event: Event,
+  ) {
+    const customEvent =
+      event as CustomEvent<string>;
+
+    const capability = capabilities.find(
+      (item) =>
+        item.id === customEvent.detail,
+    );
+
+    if (capability) {
+      setActiveCapability(
+        capability.title,
+      );
+    }
+  }
+
+  window.addEventListener(
+    "lumen:capability",
+    handleCapabilityNavigation,
+  );
+
+  return () => {
+    window.removeEventListener(
+      "lumen:capability",
+      handleCapabilityNavigation,
+    );
+  };
+}, []);
+
   const active = capabilities.find(
-    (capability) => capability.title === activeCapability,
+    (capability) =>
+      capability.title === activeCapability,
   );
 
   return (
     <div
       className="capabilities-layout"
-      onMouseLeave={() => setActiveCapability(null)}
+      onMouseLeave={() =>
+        setActiveCapability(null)
+      }
     >
+      {/* CAPABILITY LIST */}
+
       <div className="capabilities-list">
         {capabilities.map((capability) => (
-          <CapabilityRow
-            key={capability.title}
-            title={capability.title}
-            description={capability.preview}
-            isOpen={activeCapability === capability.title}
-            onActivate={() => setActiveCapability(capability.title)}
-          />
+          <div
+  key={capability.title}
+  className="capability-anchor"
+>
+            <CapabilityRow
+              title={capability.title}
+              description={capability.preview}
+              isOpen={
+                activeCapability ===
+                capability.title
+              }
+              onActivate={() =>
+                setActiveCapability(
+                  capability.title,
+                )
+              }
+            />
+          </div>
         ))}
       </div>
 
+      {/* DETAIL PANEL */}
+
       <aside className="capability-panel">
         {active && (
-          <div className="capability-panel-content">
+          <div
+            key={active.title}
+            className="capability-panel-content"
+          >
             <div className="capability-panel-services">
-              {active.services.map((service) => (
-                <span key={service}>{service}</span>
-              ))}
+              {active.services.map(
+                (service) => (
+                  <span key={service}>
+                    {service}
+                  </span>
+                ),
+              )}
             </div>
 
             <p>{active.detail}</p>

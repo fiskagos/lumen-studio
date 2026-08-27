@@ -1,62 +1,17 @@
 
 import ProjectStart from "@/components/ProjectStart";
-
+import Hero from "@/components/Hero";
 import CapabilitiesHeading from "@/components/CapabilitiesHeading";
 import FounderHeading from "@/components/FounderHeading";
 import CapabilitiesSection from "@/components/CapabilitiesSection";
-
-
+import ApproachStatement from "@/components/ApproachStatement";
+import FinalReveal from "@/components/FinalReveal";
 export default function Home() {
   return (
     <main className="lumen-home">
 
       {/* HERO */}
-      <section className="hero">
-       <div className="hero-brand">
-  <span className="brand-letter brand-l">
-    L
-    <span className="brand-dot dot-l" />
-  </span>
-
-  <span>U</span>
-
-  <span className="brand-letter brand-m">
-    M
-    <span className="brand-dot dot-m" />
-  </span>
-
-  <span>E</span>
-
-  <span className="brand-letter brand-n">
-    N
-    <span className="brand-dot dot-n" />
-  </span>
-</div>
-
-        <div className="hero-content">
-          <h1 className="hero-title">
-            Ideas deserve
-            <br />
-            more than
-            <br />
-            a template.
-          </h1>
-
-          
-        </div>
-
-       <div className="hero-footer">
-  <span>DESIGN · DEVELOPMENT · COMMERCE · AI</span>
-
-  <a
-  href="https://www.linkedin.com/company/lumen-studio-design/"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  LINKEDIN
-</a>
-</div>
-      </section>
+<Hero />
 
 
       {/* PROJECTS */}
@@ -142,7 +97,10 @@ export default function Home() {
 
 
       {/* CAPABILITIES / APPROACH */}
-<section className="capabilities-section">
+<section
+  id="capabilities"
+  className="capabilities-section"
+>
 
   <div className="capabilities-intro">
   <CapabilitiesHeading
@@ -157,52 +115,18 @@ export default function Home() {
 
 
       {/* HUMAN APPROACH */}
-      <section className="approach-section">
+   <section className="approach-section">
 
-        <div className="approach-heading">
-  <CapabilitiesHeading
-    firstLine="Built with you."
-    secondLine="Not just for you."
-  />
-</div>
-
-      <div className="approach-process">
-
-  <div className="process-line" />
-
-  <div className="process-item process-item-left">
-    <span className="process-label">LISTEN</span>
-
-    <div className="process-dot" />
-
-    <p className="process-description">
-      We understand before we design.
-    </p>
+  <div className="approach-heading">
+    <CapabilitiesHeading
+      firstLine="Built with you."
+      secondLine="Not just for you."
+    />
   </div>
 
-  <div className="process-item process-item-center">
-    <span className="process-label">SHAPE</span>
+  <ApproachStatement />
 
-    <div className="process-dot" />
-
-    <p className="process-description">
-      We turn the idea into something clear.
-    </p>
-  </div>
-
-  <div className="process-item process-item-right">
-    <span className="process-label">BUILD</span>
-
-    <div className="process-dot" />
-
-    <p className="process-description">
-      We engineer it to actually work.
-    </p>
-  </div>
-
-</div>
-
-      </section>
+</section>
 
       {/* FOUNDER */}
 <section className="founder-section">
@@ -298,18 +222,8 @@ export default function Home() {
 
 </section>
 
-      {/* FINAL LUMEN REVEAL */}
-      <section className="final-reveal">
-
-        <div className="final-wordmark">
-          LUMEN
-        </div>
-
-        <div className="final-studio">
-          STUDIO
-        </div>
-
-      </section>
+            {/* FINAL LUMEN REVEAL */}
+      <FinalReveal />
 
     </main>
   );
