@@ -11,8 +11,8 @@
 
 :root {
   /* COLORS */
-  --color-bg: #f1f0eb;
---color-bg-alt: #f1f0eb;
+  --color-bg: #ca9b96
+--color-bg-alt: e8e8e4;
   --color-text: #111111;
   --color-line: rgba(17, 17, 17, 0.28);
   --color-border: rgba(17, 17, 17, 0.25);
@@ -2745,4 +2745,929 @@ body:has(.final-reveal.is-visible)
     letter-spacing: -0.04em;
   }
 
+}
+/* =========================================
+   PROJECTS — FEATURED REEL
+   ========================================= */
+
+.projects-clean-section {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  overflow: hidden;
+
+  background: var(--color-bg);
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.projects-clean-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+}
+/* FINAL HEADING */
+
+/* =========================================
+   PROJECTS — FINAL HEADING
+   ========================================= */
+
+.projects-final-heading {
+  position: absolute;
+
+  z-index: 2;
+
+  top: 14%;
+  left: 6.5%;
+
+  opacity: 1;
+  transform: none;
+
+  pointer-events: none;
+}
+
+.projects-final-heading h2 {
+  margin: 0;
+
+  max-width: 1000px;
+
+  font-family: "Courier New", Courier, monospace;
+
+  font-size: clamp(60px, 6.5vw, 106px);
+  font-weight: 400;
+
+  line-height: 0.89;
+  letter-spacing: -0.068em;
+
+  color: #111111;
+}
+
+.projects-heading-first,
+.projects-heading-second {
+  display: block;
+
+  opacity: 0;
+}
+
+.projects-heading-first {
+  transform: translateY(14px);
+}
+
+.projects-heading-second {
+  transform: translateY(30px);
+}
+
+/* REEL */
+
+.projects-reel {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(52vw, 790px);
+  aspect-ratio: 16 / 10;
+
+  transform: translate(-50%, -50%);
+
+  overflow: visible;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.projects-reel-background {
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  background: transparent;
+
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.projects-reel-stack {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  overflow: visible;
+}
+
+
+/* SHARED LAYER */
+
+.projects-reel-layer {
+  position: absolute;
+
+  overflow: hidden;
+
+  background: transparent;
+}
+
+.projects-reel-image {
+  object-fit: cover;
+}
+
+
+/* =========================================
+   PROJECTS — STACKED RECTANGULAR FRAMES
+   ========================================= */
+
+.projects-reel-layer {
+  position: absolute;
+
+  overflow: hidden;
+
+  aspect-ratio: 16 / 10;
+
+  opacity: 0;
+
+  background: transparent;
+
+  transform-origin: center;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+
+/* HOME — largest */
+
+.projects-reel-layer-1 {
+  z-index: 1;
+
+  left: 10%;
+  top: 18%;
+
+  width: 62%;
+}
+
+
+/* WORKS */
+
+.projects-reel-layer-2 {
+  z-index: 3;
+
+  left: 23%;
+  top: 24%;
+
+  width: 56%;
+}
+
+
+/* PRODUCT */
+
+.projects-reel-layer-3 {
+  z-index: 2;
+
+  left: 34%;
+  top: 30%;
+
+  width: 50%;
+}
+
+
+/* MOBILE */
+
+.projects-reel-layer-4 {
+  z-index: 4;
+
+  left: 43%;
+  top: 34%;
+
+  width: 44%;
+}
+/* =========================================
+   PROJECTS — INTRO MOTION
+   ========================================= */
+
+.projects-reel {
+  opacity: 0;
+
+  transform:
+    translate(-50%, -47%)
+    scale(0.94);
+
+  will-change:
+    transform,
+    opacity;
+}
+
+.projects-reel-layer {
+  opacity: 0;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+
+/* BLACK FRAME */
+
+.projects-clean-section.is-active
+.projects-reel {
+  animation:
+    lumenProjectsReelIn
+    650ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+}
+
+
+@keyframes lumenProjectsReelIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -47%)
+      scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+
+/* =========================================
+   PROJECTS — BUILD + FINAL SCATTER
+   ========================================= */
+
+/* HOME — anchor */
+
+.projects-clean-section.is-active
+.projects-reel-layer-1 {
+  animation:
+    lumenProjectsLayerIn
+    480ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    300ms
+    forwards,
+
+    lumenProjectsScatterOne
+    920ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1850ms
+    forwards;
+}
+
+
+/* WORKS */
+
+.projects-clean-section.is-active
+.projects-reel-layer-2 {
+  animation:
+    lumenProjectsLayerIn
+    480ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    550ms
+    forwards,
+
+    lumenProjectsScatterTwo
+    900ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1920ms
+    forwards;
+}
+
+
+/* PRODUCT */
+
+.projects-clean-section.is-active
+.projects-reel-layer-3 {
+  animation:
+    lumenProjectsLayerIn
+    480ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    800ms
+    forwards,
+
+    lumenProjectsScatterThree
+    920ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1990ms
+    forwards;
+}
+
+
+/* MOBILE */
+
+.projects-clean-section.is-active
+.projects-reel-layer-4 {
+  animation:
+    lumenProjectsLayerIn
+    480ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1050ms
+    forwards,
+
+    lumenProjectsScatterFour
+    880ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    2060ms
+    forwards;
+}
+
+
+@keyframes lumenProjectsLayerIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(24px)
+      scale(0.88);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+/* =========================================
+   PROJECTS — BLACK BOX OUT
+   ========================================= */
+
+.projects-clean-section.is-active
+.projects-reel-background {
+  animation:
+    lumenProjectsBackgroundOut
+    620ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1780ms
+    forwards;
+
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+@keyframes lumenProjectsBackgroundOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+}
+/* =========================================
+   PROJECTS — HEADING REVEAL
+   ========================================= */
+
+.projects-clean-section.is-active
+.projects-heading-first {
+  animation:
+    lumenProjectsFirstLineIn
+    600ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1880ms
+    forwards;
+}
+
+.projects-clean-section.is-active
+.projects-heading-second {
+  animation:
+    lumenProjectsSecondLineIn
+    760ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    2020ms
+    forwards;
+}
+
+@keyframes lumenProjectsFirstLineIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lumenProjectsSecondLineIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* =========================================
+   PROJECTS — HORIZONTAL OVERLAP
+   ========================================= */
+
+
+/* HOME — left anchor */
+
+@keyframes lumenProjectsScatterOne {
+  0% {
+    opacity: 1;
+
+    transform:
+      translate3d(0, 0, 0)
+      scale(1)
+      rotate(0deg);
+  }
+
+  76% {
+    transform:
+      translate3d(-3.5vw, 25vh, 0)
+      scale(0.80)
+      rotate(-4deg);
+  }
+
+  90% {
+    transform:
+      translate3d(-3vw, 23.8vh, 0)
+      scale(0.77)
+      rotate(-3.4deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate3d(-3vw, 24.2vh, 0)
+      scale(0.78)
+      rotate(-3.5deg);
+  }
+}
+
+
+/* WORKS — overlaps HOME */
+
+@keyframes lumenProjectsScatterTwo {
+  0% {
+    opacity: 1;
+
+    transform:
+      translate3d(0, 0, 0)
+      scale(1)
+      rotate(0deg);
+  }
+
+  76% {
+    transform:
+      translate3d(7.5vw, 20vh, 0)
+      scale(0.84)
+      rotate(2.2deg);
+  }
+
+  90% {
+    transform:
+      translate3d(8vw, 19vh, 0)
+      scale(0.81)
+      rotate(1.5deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate3d(8vw, 19.4vh, 0)
+      scale(0.82)
+      rotate(1.6deg);
+  }
+}
+
+
+/* PRODUCT — continues horizontally */
+
+@keyframes lumenProjectsScatterThree {
+  0% {
+    opacity: 1;
+
+    transform:
+      translate3d(0, 0, 0)
+      scale(1)
+      rotate(0deg);
+  }
+
+  76% {
+    transform:
+      translate3d(18vw, 25.5vh, 0)
+      scale(0.86)
+      rotate(-1.8deg);
+  }
+
+  90% {
+    transform:
+      translate3d(18.5vw, 24.2vh, 0)
+      scale(0.83)
+      rotate(-1.1deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate3d(18.5vw, 24.6vh, 0)
+      scale(0.84)
+      rotate(-1.2deg);
+  }
+}
+
+
+/* MOBILE — right / slightly higher */
+
+@keyframes lumenProjectsScatterFour {
+  0% {
+    opacity: 1;
+
+    transform:
+      translate3d(0, 0, 0)
+      scale(1)
+      rotate(0deg);
+  }
+
+  76% {
+    transform:
+      translate3d(28vw, 19vh, 0)
+      scale(0.90)
+      rotate(3.4deg);
+  }
+
+  90% {
+    transform:
+      translate3d(28.5vw, 18vh, 0)
+      scale(0.87)
+      rotate(2.7deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate3d(28.5vw, 18.4vh, 0)
+      scale(0.88)
+      rotate(2.8deg);
+  }
+}
+/* =========================================
+   PROJECTS — FINAL INTERACTION
+   ========================================= */
+
+.projects-frame-link {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  pointer-events: none;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.projects-clean-section.is-settled
+.projects-frame-link {
+  pointer-events: auto;
+
+  cursor: pointer;
+}
+
+
+/* PROJECT LINK */
+
+.projects-site-link {
+  position: absolute;
+
+  right: 6.5%;
+  bottom: 4.5%;
+
+  z-index: 10;
+
+  opacity: 0;
+
+  transform: translateY(8px);
+
+  pointer-events: none;
+
+  font-family: "Courier New", Courier, monospace;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  line-height: 1;
+
+  letter-spacing: -0.02em;
+
+  color: #111111;
+  text-decoration: none;
+
+  transition:
+    opacity 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+.projects-clean-section.is-settled
+.projects-site-link {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  pointer-events: auto;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+  .projects-site-link:hover {
+    text-decoration: underline;
+
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+  }
+
+}
+/* =========================================
+   PROJECTS — RETURN VISIT
+   ========================================= */
+
+/*
+ * Skip the intro reel on every visit
+ * after the first one.
+ */
+
+.projects-clean-section.is-returning
+.projects-reel {
+  opacity: 1;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1);
+
+  animation: none;
+}
+
+
+/* No background/reel frame on return */
+
+.projects-clean-section.is-returning
+.projects-reel-background {
+  opacity: 0;
+
+  animation: none;
+}
+
+
+/* =========================================
+   PROJECTS — HEADING ON RETURN
+   ========================================= */
+
+/* First line stays visible */
+
+.projects-clean-section.is-returning
+.projects-heading-first {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  animation: none;
+}
+
+
+/* Second part reveals again on re-entry */
+
+.projects-clean-section.is-active.is-returning
+.projects-heading-second {
+  opacity: 0;
+
+  transform: translateY(28px);
+
+  animation:
+    lumenProjectsSecondLineReturn
+    720ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    140ms
+    forwards;
+}
+
+
+@keyframes lumenProjectsSecondLineReturn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Project link stays visible */
+
+.projects-clean-section.is-returning
+.projects-site-link {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  pointer-events: auto;
+}
+/* =========================================
+   PROJECTS — RETURN SHAKE
+   ========================================= */
+
+.projects-clean-section.is-returning
+.projects-reel-layer-1 {
+  opacity: 1;
+
+  animation:
+    lumenProjectsReturnOne
+    680ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+}
+
+.projects-clean-section.is-returning
+.projects-reel-layer-2 {
+  opacity: 1;
+
+  animation:
+    lumenProjectsReturnTwo
+    720ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    70ms
+    forwards;
+}
+
+.projects-clean-section.is-returning
+.projects-reel-layer-3 {
+  opacity: 1;
+
+  animation:
+    lumenProjectsReturnThree
+    700ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    120ms
+    forwards;
+}
+
+.projects-clean-section.is-returning
+.projects-reel-layer-4 {
+  opacity: 1;
+
+  animation:
+    lumenProjectsReturnFour
+    680ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    170ms
+    forwards;
+}
+
+
+/* =========================================
+   PROJECTS — RETURN SHAKE
+   ========================================= */
+
+@keyframes lumenProjectsReturnOne {
+  0% {
+    transform:
+      translate3d(-3vw, 22.8vh, 0)
+      scale(0.80)
+      rotate(-3.8deg);
+  }
+
+  55% {
+    transform:
+      translate3d(-3vw, 25vh, 0)
+      scale(0.765)
+      rotate(-3.2deg);
+  }
+
+  78% {
+    transform:
+      translate3d(-3vw, 23.7vh, 0)
+      scale(0.79)
+      rotate(-3.6deg);
+  }
+
+  100% {
+    transform:
+      translate3d(-3vw, 24.2vh, 0)
+      scale(0.78)
+      rotate(-3.5deg);
+  }
+}
+
+
+@keyframes lumenProjectsReturnTwo {
+  0% {
+    transform:
+      translate3d(8vw, 18vh, 0)
+      scale(0.84)
+      rotate(1.9deg);
+  }
+
+  55% {
+    transform:
+      translate3d(8vw, 20.3vh, 0)
+      scale(0.80)
+      rotate(1.3deg);
+  }
+
+  78% {
+    transform:
+      translate3d(8vw, 18.9vh, 0)
+      scale(0.83)
+      rotate(1.7deg);
+  }
+
+  100% {
+    transform:
+      translate3d(8vw, 19.4vh, 0)
+      scale(0.82)
+      rotate(1.6deg);
+  }
+}
+
+
+@keyframes lumenProjectsReturnThree {
+  0% {
+    transform:
+      translate3d(18.5vw, 23.2vh, 0)
+      scale(0.86)
+      rotate(-1.5deg);
+  }
+
+  55% {
+    transform:
+      translate3d(18.5vw, 25.6vh, 0)
+      scale(0.82)
+      rotate(-0.9deg);
+  }
+
+  78% {
+    transform:
+      translate3d(18.5vw, 24vh, 0)
+      scale(0.85)
+      rotate(-1.3deg);
+  }
+
+  100% {
+    transform:
+      translate3d(18.5vw, 24.6vh, 0)
+      scale(0.84)
+      rotate(-1.2deg);
+  }
+}
+
+
+@keyframes lumenProjectsReturnFour {
+  0% {
+    transform:
+      translate3d(28.5vw, 17vh, 0)
+      scale(0.90)
+      rotate(3.1deg);
+  }
+
+  55% {
+    transform:
+      translate3d(28.5vw, 19.3vh, 0)
+      scale(0.86)
+      rotate(2.5deg);
+  }
+
+  78% {
+    transform:
+      translate3d(28.5vw, 17.9vh, 0)
+      scale(0.89)
+      rotate(2.9deg);
+  }
+
+  100% {
+    transform:
+      translate3d(28.5vw, 18.4vh, 0)
+      scale(0.88)
+      rotate(2.8deg);
+  }
 }

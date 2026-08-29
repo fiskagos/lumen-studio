@@ -82,24 +82,25 @@ export default function ApproachStatement() {
     let changeTextTimer: number | undefined;
     let finishFlipTimer: number | undefined;
 
-    startFlipTimer = window.setTimeout(() => {
-      setFlipPhase("out");
+   const holdDuration =
+  activeFragment === 0 ? 2200 : 900;
 
-      changeTextTimer = window.setTimeout(() => {
-        setActiveFragment((current) =>
-          Math.min(
-            current + 1,
-            fragments.length - 1,
-          ),
-        );
+startFlipTimer = window.setTimeout(() => {
+  setFlipPhase("out");
 
-        setFlipPhase("in");
+  changeTextTimer = window.setTimeout(() => {
+    setActiveFragment(current =>
+      Math.min(current + 1, fragments.length - 1)
+    );
 
-        finishFlipTimer = window.setTimeout(() => {
-          setFlipPhase("rest");
-        }, 180);
-      }, 140);
-    }, 900);
+    setFlipPhase("in");
+
+    finishFlipTimer = window.setTimeout(
+      () => setFlipPhase("rest"),
+      180
+    );
+  }, 140);
+}, holdDuration);
 
     return () => {
       if (startFlipTimer !== undefined) {
