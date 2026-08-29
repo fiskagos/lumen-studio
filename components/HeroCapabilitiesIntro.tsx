@@ -1,7 +1,11 @@
 "use client";
 
 import {useEffect, useState} from "react";
-import type {HeroTargetMetrics} from "./Hero";
+
+type HeroTargetMetrics = {
+  rect: DOMRect;
+  fontSize: number;
+};
 
 const capabilities = [
   "DESIGN",
@@ -30,25 +34,20 @@ export default function HeroCapabilitiesIntro({
   onSettled,
   onComplete,
 }: Props) {
-
   const [activeIndex, setActiveIndex] = useState(0);
   const [moving, setMoving] = useState(false);
 
   const [target, setTarget] =
     useState<TargetPosition | null>(null);
 
-
   useEffect(() => {
-
     setMoving(false);
     setTarget(null);
 
     /*
-      1. Word sits in the centre for a moment.
-    */
-
+     * Word sits in the centre for a moment.
+     */
     const moveTimer = window.setTimeout(() => {
-
       const metrics = getTargetMetrics(activeIndex);
 
       if (!metrics) {
@@ -68,44 +67,32 @@ export default function HeroCapabilitiesIntro({
           setMoving(true);
         });
       });
-
     }, 500);
 
-
     /*
-      2. After movement finishes,
-         reveal the real footer word.
-    */
-
+     * After movement finishes,
+     * reveal the real footer word.
+     */
     const settleTimer = window.setTimeout(() => {
-
       onSettled(activeIndex + 1);
 
       if (activeIndex === capabilities.length - 1) {
-
         /*
-          All four are home.
-          Now reveal the statement.
-        */
-
+         * All four are home.
+         * Now reveal the statement.
+         */
         window.setTimeout(() => {
           onComplete();
         }, 350);
-
       } else {
-
         setActiveIndex((current) => current + 1);
-
       }
-
     }, 1450);
-
 
     return () => {
       window.clearTimeout(moveTimer);
       window.clearTimeout(settleTimer);
     };
-
   }, [
     activeIndex,
     getTargetMetrics,
@@ -113,13 +100,10 @@ export default function HeroCapabilitiesIntro({
     onComplete,
   ]);
 
-
   const capability = capabilities[activeIndex];
-
 
   return (
     <div className="hero-intro">
-
       <span
         key={capability}
         className={`hero-intro-word ${
@@ -137,7 +121,6 @@ export default function HeroCapabilitiesIntro({
       >
         {capability}
       </span>
-
     </div>
   );
 }

@@ -18,7 +18,8 @@ export default function Home() {
       <Hero />
 
       {/* PROJECTS */}
-<ProjectsSection variant="wide-arc" />
+
+       <ProjectsSection />
 
 
       {/* CAPABILITIES / APPROACH */}
