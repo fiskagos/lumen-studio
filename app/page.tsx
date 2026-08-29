@@ -6,94 +6,19 @@ import FounderHeading from "@/components/FounderHeading";
 import CapabilitiesSection from "@/components/CapabilitiesSection";
 import ApproachStatement from "@/components/ApproachStatement";
 import FinalReveal from "@/components/FinalReveal";
+import ProjectsSection from "@/components/ProjectsSection";
+
+
+
 export default function Home() {
   return (
     <main className="lumen-home">
 
-      {/* HERO */}
-<Hero />
-
+ {/* HERO */}
+      <Hero />
 
       {/* PROJECTS */}
-      <section className="projects-section">
-        <div className="projects-grid">
-
-          <article className="project-card">
-            <div className="project-media">
-              <div className="project-placeholder">
-                PROJECT 01
-              </div>
-            </div>
-
-            <div className="project-meta">
-              <div>
-                <h2 className="project-title">
-                  Alice Salvetz
-                </h2>
-
-                <p className="project-category">
-                  Artist · Commerce
-                </p>
-              </div>
-
-              <span className="project-year">
-                2026
-              </span>
-            </div>
-          </article>
-
-
-          <article className="project-card">
-            <div className="project-media">
-              <div className="project-placeholder">
-                PROJECT 02
-              </div>
-            </div>
-
-            <div className="project-meta">
-              <div>
-                <h2 className="project-title">
-                  Project Two
-                </h2>
-
-                <p className="project-category">
-                  Digital · Web
-                </p>
-              </div>
-
-              <span className="project-year">
-                2026
-              </span>
-            </div>
-          </article>
-
-
-          <article className="project-card">
-            <div className="project-media">
-              <div className="project-placeholder">
-                PROJECT 03
-              </div>
-            </div>
-
-            <div className="project-meta">
-              <div>
-                <h2 className="project-title">
-                  Project Three
-                </h2>
-
-                <p className="project-category">
-                  Brand · Web
-                </p>
-              </div>
-
-              <span className="project-year">
-                2026
-              </span>
-            </div>
-          </article>
-
-        </div>
-      </section>
+<ProjectsSection variant="wide-arc" />
 
 
       {/* CAPABILITIES / APPROACH */}
