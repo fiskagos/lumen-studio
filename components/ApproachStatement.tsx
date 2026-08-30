@@ -1,6 +1,11 @@
 "use client";
 
-import {useEffect, useRef, useState} from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 const fragments = [
   "THE VERSION THAT DOESN'T EXIST YET.",
@@ -13,13 +18,57 @@ const fragments = [
 
 type FlipPhase = "rest" | "out" | "in";
 
-export default function ApproachStatement() {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
+function subscribeToReducedMotion(
+  callback: () => void,
+) {
+  const mediaQuery = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  );
 
-  const [isVisible, setIsVisible] = useState(false);
-  const [activeFragment, setActiveFragment] = useState(0);
+  mediaQuery.addEventListener(
+    "change",
+    callback,
+  );
+
+  return () => {
+    mediaQuery.removeEventListener(
+      "change",
+      callback,
+    );
+  };
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+}
+
+function getReducedMotionServerSnapshot() {
+  return false;
+}
+
+export default function ApproachStatement() {
+  const sectionRef =
+    useRef<HTMLDivElement | null>(null);
+
+  const [isVisible, setIsVisible] =
+    useState(false);
+
+  const [
+    activeFragment,
+    setActiveFragment,
+  ] = useState(0);
+
   const [flipPhase, setFlipPhase] =
     useState<FlipPhase>("rest");
+
+  const reducedMotion =
+    useSyncExternalStore(
+      subscribeToReducedMotion,
+      getReducedMotionSnapshot,
+      getReducedMotionServerSnapshot,
+    );
 
   useEffect(() => {
     const element = sectionRef.current;
@@ -28,28 +77,33 @@ export default function ApproachStatement() {
       return;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (
-          entry.isIntersecting &&
-          entry.intersectionRatio >= 0.35
-        ) {
-          setIsVisible(true);
-          return;
-        }
+    const observer =
+      new IntersectionObserver(
+        ([entry]) => {
+          if (
+            entry.isIntersecting &&
+            entry.intersectionRatio >= 0.35
+          ) {
+            setIsVisible(true);
+            return;
+          }
 
-        if (!entry.isIntersecting) {
-          setIsVisible(false);
+          if (!entry.isIntersecting) {
+            setIsVisible(false);
 
-          // Reset the sequence when leaving the section.
-          setActiveFragment(0);
-          setFlipPhase("rest");
-        }
-      },
-      {
-        threshold: [0, 0.35],
-      },
-    );
+            /*
+             * Reset the sequence when leaving
+             * the section so it can replay
+             * on the next visit.
+             */
+            setActiveFragment(0);
+            setFlipPhase("rest");
+          }
+        },
+        {
+          threshold: [0, 0.35],
+        },
+      );
 
     observer.observe(element);
 
@@ -59,63 +113,90 @@ export default function ApproachStatement() {
   }, []);
 
   useEffect(() => {
-    if (!isVisible) {
+    if (
+      !isVisible ||
+      reducedMotion ||
+      activeFragment ===
+        fragments.length - 1
+    ) {
       return;
     }
 
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    let changeTextTimer:
+      | number
+      | undefined;
 
-    if (reducedMotion) {
-      setActiveFragment(fragments.length - 1);
-      setFlipPhase("rest");
-      return;
-    }
+    let finishFlipTimer:
+      | number
+      | undefined;
 
-    if (activeFragment === fragments.length - 1) {
-      setFlipPhase("rest");
-      return;
-    }
+    const holdDuration =
+      activeFragment === 0
+        ? 2200
+        : 900;
 
-    let startFlipTimer: number | undefined;
-    let changeTextTimer: number | undefined;
-    let finishFlipTimer: number | undefined;
+    const startFlipTimer =
+      window.setTimeout(() => {
+        setFlipPhase("out");
 
-   const holdDuration =
-  activeFragment === 0 ? 2200 : 900;
+        changeTextTimer =
+          window.setTimeout(() => {
+            setActiveFragment(
+              (current) =>
+                Math.min(
+                  current + 1,
+                  fragments.length - 1,
+                ),
+            );
 
-startFlipTimer = window.setTimeout(() => {
-  setFlipPhase("out");
+            setFlipPhase("in");
 
-  changeTextTimer = window.setTimeout(() => {
-    setActiveFragment(current =>
-      Math.min(current + 1, fragments.length - 1)
-    );
-
-    setFlipPhase("in");
-
-    finishFlipTimer = window.setTimeout(
-      () => setFlipPhase("rest"),
-      180
-    );
-  }, 140);
-}, holdDuration);
+            finishFlipTimer =
+              window.setTimeout(
+                () => {
+                  setFlipPhase("rest");
+                },
+                180,
+              );
+          }, 140);
+      }, holdDuration);
 
     return () => {
-      if (startFlipTimer !== undefined) {
-        window.clearTimeout(startFlipTimer);
+      window.clearTimeout(
+        startFlipTimer,
+      );
+
+      if (
+        changeTextTimer !== undefined
+      ) {
+        window.clearTimeout(
+          changeTextTimer,
+        );
       }
 
-      if (changeTextTimer !== undefined) {
-        window.clearTimeout(changeTextTimer);
-      }
-
-      if (finishFlipTimer !== undefined) {
-        window.clearTimeout(finishFlipTimer);
+      if (
+        finishFlipTimer !== undefined
+      ) {
+        window.clearTimeout(
+          finishFlipTimer,
+        );
       }
     };
-  }, [isVisible, activeFragment]);
+  }, [
+    isVisible,
+    reducedMotion,
+    activeFragment,
+  ]);
+
+  const displayedFragment =
+    reducedMotion
+      ? fragments.length - 1
+      : activeFragment;
+
+  const displayedFlipPhase =
+    reducedMotion
+      ? "rest"
+      : flipPhase;
 
   return (
     <div
@@ -125,16 +206,20 @@ startFlipTimer = window.setTimeout(() => {
       <div className="approach-flip-stage">
         <div
           className={`approach-flip-text ${
-            flipPhase === "out"
+            displayedFlipPhase === "out"
               ? "is-flipping-out"
               : ""
           } ${
-            flipPhase === "in"
+            displayedFlipPhase === "in"
               ? "is-flipping-in"
               : ""
           }`}
         >
-          {fragments[activeFragment]}
+          {
+            fragments[
+              displayedFragment
+            ]
+          }
         </div>
       </div>
     </div>
