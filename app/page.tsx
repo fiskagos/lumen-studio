@@ -7,7 +7,7 @@ import CapabilitiesSection from "@/components/CapabilitiesSection";
 import ApproachStatement from "@/components/ApproachStatement";
 import FinalReveal from "@/components/FinalReveal";
 import ProjectsSection from "@/components/ProjectsSection";
-
+import ContactMotion from "../components/ContactMotion";
 
 
 export default function Home() {
@@ -107,24 +107,24 @@ export default function Home() {
 {/* CONTACT */}
 <section className="contact-section">
 
+  <ContactMotion />
+
   <div className="contact-heading">
-  <CapabilitiesHeading
-    firstLine="Have an idea?"
-    secondLine="Let's give it form."
-  />
-</div>
+    <CapabilitiesHeading
+      firstLine="Have an idea?"
+      secondLine="Let's give it form."
+    />
+  </div>
 
- <div className="contact-copy">
-  <p>
-    Tell us what you&apos;re thinking.
-    <br />
-    It doesn&apos;t need to be figured out yet.
-  </p>
-</div>
+  <div className="contact-primary">
+    <ProjectStart />
 
-  <div className="contact-actions">
-
-  <ProjectStart />
+    <p className="contact-copy">
+      Tell us what you&apos;re thinking.
+      <br />
+      It doesn&apos;t need to be figured out yet.
+    </p>
+  </div>
 
   <div className="contact-secondary">
     <span>OR JUST SAY HELLO</span>
@@ -134,22 +134,10 @@ export default function Home() {
     </a>
   </div>
 
-</div>
-
-  <div className="contact-footer">
-    <a
-      href="https://www.linkedin.com/company/lumen-studio-design/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      
-    </a>
-  </div>
-
 </section>
 
-            {/* FINAL LUMEN REVEAL */}
-      <FinalReveal />
+{/* FINAL LUMEN REVEAL */}
+<FinalReveal />
 
     </main>
   );

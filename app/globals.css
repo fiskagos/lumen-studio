@@ -11,7 +11,7 @@
 
 :root {
   /* COLORS */
-  --color-bg: #ca9b96
+  --color-bg: #C1AAA2;
 --color-bg-alt: e8e8e4;
   --color-text: #111111;
   --color-line: rgba(17, 17, 17, 0.28);
@@ -399,93 +399,166 @@ a {
 }
 
 /* =========================================
-   CAPABILITIES DESKTOP LAYOUT
+   CAPABILITIES — PAPER NOTE
    ========================================= */
 
 .capabilities-layout {
+  position: relative;
+
   width: 100%;
 
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.65fr);
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(360px, 0.65fr);
+
   gap: clamp(70px, 8vw, 150px);
 
   align-items: start;
 }
 
 
-/* DETAIL PANEL */
+/* PAPER NOTE AREA */
 
 .capability-panel {
-  padding-top: 8px;
+  position: relative;
 
-  min-height: 250px;
+  min-height: 300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
 }
 
 
-/* PANEL REVEAL */
+/* PAPER NOTE */
 
 .capability-panel-content {
+  position: relative;
+
+  left: -130px;
+
+  width: min(420px, 100%);
+  min-height: 250px;
+
+  padding:
+    42px
+    40px
+    38px;
+
+  background: #e8dfd7;
+  color: #111111;
+
+  transform:
+    translateY(24px)
+    rotate(-1.7deg)
+    scale(0.96);
+
+  transform-origin: center;
+
   opacity: 0;
-  transform: translateY(8px);
+
+  box-shadow:
+    0 3px 6px rgba(17, 17, 17, 0.08),
+    0 18px 38px rgba(17, 17, 17, 0.14);
 
   animation:
-    capability-panel-reveal
-    0.7s
-    var(--ease-lumen)
+    capability-note-in
+    520ms
+    cubic-bezier(0.16, 1, 0.3, 1)
     forwards;
 }
 
-@keyframes capability-panel-reveal {
-  from {
+
+/* NOTE ENTRANCE */
+
+@keyframes capability-note-in {
+
+  0% {
     opacity: 0;
-    transform: translateY(8px);
+
+    transform:
+      translateY(34px)
+      rotate(-3deg)
+      scale(0.94);
   }
 
-  to {
+  68% {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(-4px)
+      rotate(-1.2deg)
+      scale(1.015);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      rotate(-1.7deg)
+      scale(1);
   }
 }
 
-/* PANEL SERVICES */
+
+/* SERVICES INSIDE NOTE */
 
 .capability-panel-services {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 34px;
 
-  margin-bottom: 42px;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap:
+    12px
+    28px;
+
+  margin-bottom: 38px;
 }
 
 .capability-panel-services span {
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
   font-size: 11px;
+  font-weight: 700;
+
   line-height: 1.4;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.06em;
 
-  color: var(--color-text);
+  color: #111111;
 
-  text-shadow:
-    0.3px 0 var(--color-text),
-    -0.3px 0 var(--color-text);
+  text-shadow: none;
 }
 
 
-/* DESCRIPTION */
+/* NOTE DESCRIPTION */
 
 .capability-panel p {
   margin: 0;
 
-  max-width: 560px;
+  max-width: 340px;
 
-  font-size: 15px;
-  line-height: 1.65;
-  letter-spacing: -0.02em;
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
 
-  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 400;
 
-  text-shadow:
-    0.15px 0 var(--color-text),
-    -0.15px 0 var(--color-text);
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+
+  color: #111111;
+
+  text-shadow: none;
 }
 
 
@@ -711,129 +784,218 @@ a {
 
 
 /* =========================================
-   FINAL LUMEN REVEAL
+   CONTACT → FINAL LUMEN DOT JOURNEY
    ========================================= */
 
-.final-reveal {
-  min-height: 100vh;
-  width: 100%;
+.contact-motion-layer {
+  position: fixed;
 
-  padding:
-    60px
-    var(--page-padding)
-    40px;
+  inset: 0;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  z-index: 50;
 
-  background: var(--color-bg);
-  color: var(--color-text);
+  pointer-events: none;
 
-  overflow: hidden;
+  opacity: 0;
+
+  transition: opacity 220ms ease;
 }
 
-.final-symbol {
-  display: block;
+.contact-motion-dot {
+  position: absolute;
 
-  width: 110px;
-  height: auto;
+  top: 0;
+  left: 0;
 
-  margin-bottom: 80px;
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+
+  background: var(--color-text);
+
+  transform-origin: center;
+
+  will-change:
+    transform,
+    opacity;
 }
 
-.final-wordmark {
-  width: 100%;
 
-  font-family: "Courier New", Courier, monospace;
+/* Hide destination dots while
+   the travelling dots are active */
 
-  font-size: clamp(90px, 16vw, 240px);
-  font-weight: 400;
-
-  line-height: 0.8;
-  letter-spacing: -0.08em;
-
-  text-align: center;
-
-  white-space: nowrap;
+.final-reveal-dot {
+  transition: opacity 120ms linear;
 }
 
-.final-studio {
-  margin-top: 35px;
+body.contact-dot-journey
+.final-reveal-dot {
+  opacity: 0;
+}
 
-  font-family: "Courier New", Courier, monospace;
 
-  font-size: 11px;
-  font-weight: 400;
+/* ACCESSIBILITY */
 
-  letter-spacing: 0.4em;
+@media (prefers-reduced-motion: reduce) {
+
+  .contact-motion-layer {
+    display: none;
+  }
+
+  .final-reveal-dot {
+    opacity: 1;
+  }
+
 }
 /* =========================================
-   CONTACT
+   CONTACT — THE MARGIN
    ========================================= */
 
 .contact-section {
+  position: relative;
+
   width: 100%;
   min-height: 100vh;
+  min-height: 100svh;
 
-  padding:
-    160px
-    var(--page-padding)
-    60px;
+  padding: 70px var(--page-padding) 48px;
+
+  overflow: hidden;
 
   background: var(--color-bg);
   color: var(--color-text);
 }
 
+
+/* HEADLINE — BOTTOM LEFT */
+
 .contact-heading {
-  width: 100%;
+  position: absolute;
+
+  left: 50%;
+  bottom: 15%;
+
+  width: auto;
+
+  transform: translateX(-50%);
+  text-align: center;
 }
 
 .contact-heading h2 {
   margin: 0;
 
-  max-width: var(--content-max);
+  font-size: clamp(34px, 3.3vw, 52px);
+  font-weight: 400;
 
-  font-family: "Courier New", Courier, monospace;
-  font-size: clamp(64px, 7.8vw, 128px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+
+/* PRIMARY ACTION — TOP RIGHT */
+
+.contact-primary {
+  position: absolute;
+  top: 70px;
+  left: var(--page-padding);
+
+  width: auto;
+
+  padding: 0;
+  border: 0;
+}
+
+.contact-primary .project-start-button {
+  font-size: clamp(18px, 1.4vw, 22px);
+  color: var(--color-text);
+}
+
+.contact-primary .project-start-button {
+  display: block;
+
+  color: var(--color-text);
+
+  font-size: clamp(34px, 2.8vw, 46px);
   font-weight: 400;
 
   line-height: 0.95;
-  letter-spacing: -0.065em;
+  letter-spacing: -0.055em;
+
+  text-align: left;
+
+  transition:
+    transform 240ms var(--ease-lumen),
+    text-shadow var(--motion-micro) ease;
 }
+
+.contact-primary .project-start-button:hover {
+  transform: translateX(10px);
+
+  color: var(--color-text);
+
+  text-shadow:
+    0.45px 0 var(--color-text),
+    -0.45px 0 var(--color-text);
+}
+
+
+/* SUPPORTING COPY */
 
 .contact-copy {
-  margin-top: 110px;
+  margin: 24px 0 0;
 
-  font-size: 12px;
-  line-height: 1.6;
-  letter-spacing: 0.04em;
+  max-width: 340px;
+
+  font-size: 13px;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+
+  opacity: 0.68;
 }
 
-.contact-actions {
-  margin-top: 70px;
-}
+
+/* SECONDARY CONTACT — BOTTOM RIGHT */
 
 .contact-secondary {
-  margin-top: 35px;
+  position: absolute;
+
+  right: var(--page-padding);
+  bottom: 8.5%;
+
+  width: clamp(260px, 22vw, 380px);
+
+  padding-top: 18px;
 
   display: flex;
-  gap: 25px;
-  align-items: center;
+  flex-direction: column;
+  gap: 10px;
 
-  font-size: 10px;
-  letter-spacing: 0.12em;
+  border-top: 1px solid rgba(17, 17, 17, 0.28);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  font-weight: 400;
+
+  line-height: 1.2;
+  letter-spacing: 0.09em;
 }
 
-.contact-footer {
-  margin-top: 120px;
+.contact-secondary span {
+  opacity: 0.5;
+}
 
-  display: flex;
-  justify-content: flex-end;
+.contact-secondary a {
+  width: fit-content;
 
-  font-size: 10px;
-  letter-spacing: 0.12em;
+  color: var(--color-text);
+  text-decoration: none;
+
+  opacity: 0.82;
+
+  transition:
+    opacity var(--motion-micro) ease,
+    text-shadow var(--motion-micro) ease;
 }
 
 
@@ -2027,7 +2189,7 @@ a {
 .lumen-intro-trackingOversize {
   animation:
     lumenTrackingOversize
-    1.7s
+    0.9s
     cubic-bezier(0.76, 0, 0.24, 1)
     forwards;
 }
@@ -2170,7 +2332,7 @@ a {
 .lumen-hero-brand.dots-visible .lumen-brand-dot {
   animation:
     lumenDotTravel
-    2.4s
+    1.15s
     cubic-bezier(0.65, 0, 0.35, 1)
     forwards;
 }
@@ -2188,7 +2350,7 @@ a {
   --dot-near-x: 8vw;
   --dot-near-y: 8vh;
 
-  animation-delay: 1.3s;
+  animation-delay: 0.1s;
 }
 
 
@@ -2204,7 +2366,7 @@ a {
   --dot-near-x: 6vw;
   --dot-near-y: 7vh;
 
-  animation-delay: 1.65s;
+  animation-delay: 0.2s;
 }
 
 
@@ -2220,7 +2382,7 @@ a {
   --dot-near-x: 10vw;
   --dot-near-y: 5vh;
 
-  animation-delay: 2s;
+  animation-delay: 0.3s;
 }
 
 
