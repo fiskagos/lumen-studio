@@ -1,7 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import {useEffect, useRef, useState} from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+type ProjectsSectionProps = {
+  sceneActive?: boolean;
+};
 
 const featuredProject = {
   title: "Alice Salvetz",
@@ -30,91 +38,136 @@ const featuredProject = {
   ],
 };
 
-export default function ProjectsSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
+export default function ProjectsSection({
+  sceneActive,
+}: ProjectsSectionProps) {
+  const sectionRef =
+    useRef<HTMLElement | null>(null);
+
   const hasPlayedOnce = useRef(false);
   const isInside = useRef(false);
 
-  const [isActive, setIsActive] = useState(false);
-  const [isReturning, setIsReturning] = useState(false);
-  const [isSettled, setIsSettled] = useState(false);
+  const [isActive, setIsActive] =
+    useState(false);
+
+  const [isReturning, setIsReturning] =
+    useState(false);
+
+  const [isSettled, setIsSettled] =
+    useState(false);
+
+  const isSceneControlled =
+    typeof sceneActive === "boolean";
+
+  const effectiveActive =
+    isSceneControlled
+      ? sceneActive
+      : isActive;
+
+  /* =========================================
+     NORMAL VERTICAL PAGE MODE
+     ========================================= */
 
   useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (
-          entry.isIntersecting &&
-          entry.intersectionRatio >= 0.85 &&
-          !isInside.current
-        ) {
-          isInside.current = true;
-
-          if (!hasPlayedOnce.current) {
-            hasPlayedOnce.current = true;
-
-            setIsReturning(false);
-            setIsSettled(false);
-            setIsActive(true);
-          } else {
-            setIsReturning(true);
-            setIsSettled(true);
-            setIsActive(true);
-          }
-
-          return;
-        }
-
-        if (
-          entry.intersectionRatio <= 0.1 &&
-          isInside.current
-        ) {
-          isInside.current = false;
-
-          setIsActive(false);
-        }
-      },
-      {
-        threshold: [0, 0.1, 0.85],
-      },
-    );
-
-    observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isActive || isReturning) {
+    if (isSceneControlled) {
       return;
     }
 
-    /*
-     * Reveal the project link only after
-     * the first intro sequence has finished.
-     */
-    const settleTimer = window.setTimeout(() => {
-      setIsSettled(true);
-    }, 3200);
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const observer =
+      new IntersectionObserver(
+        ([entry]) => {
+          if (
+            entry.isIntersecting &&
+            entry.intersectionRatio >= 0.85 &&
+            !isInside.current
+          ) {
+            isInside.current = true;
+
+            if (!hasPlayedOnce.current) {
+              hasPlayedOnce.current = true;
+
+              setIsReturning(false);
+              setIsSettled(false);
+              setIsActive(true);
+            } else {
+              setIsReturning(true);
+              setIsSettled(true);
+              setIsActive(true);
+            }
+
+            return;
+          }
+
+          if (
+            entry.intersectionRatio <= 0.1 &&
+            isInside.current
+          ) {
+            isInside.current = false;
+
+            setIsActive(false);
+          }
+        },
+        {
+          threshold: [0, 0.1, 0.85],
+        },
+      );
+
+    observer.observe(section);
 
     return () => {
-      window.clearTimeout(settleTimer);
+      observer.disconnect();
     };
-  }, [isActive, isReturning]);
+  }, [isSceneControlled]);
+
+  /* =========================================
+     PROJECT SETTLE
+     ========================================= */
+
+  useEffect(() => {
+    if (
+      !effectiveActive ||
+      isReturning
+    ) {
+      return;
+    }
+
+    const settleTimer =
+      window.setTimeout(() => {
+        setIsSettled(true);
+      }, 3200);
+
+    return () => {
+      window.clearTimeout(
+        settleTimer,
+      );
+    };
+  }, [
+    effectiveActive,
+    isReturning,
+  ]);
 
   return (
     <section
       ref={sectionRef}
       id="projects"
       className={`projects-clean-section ${
-        isActive ? "is-active" : ""
+        effectiveActive
+          ? "is-active"
+          : ""
       } ${
-        isReturning ? "is-returning" : ""
+        isReturning
+          ? "is-returning"
+          : ""
       } ${
-        isSettled ? "is-settled" : ""
+        isSettled
+          ? "is-settled"
+          : ""
       }`}
     >
       <div className="projects-clean-stage">
@@ -136,21 +189,27 @@ export default function ProjectsSection() {
           <div className="projects-reel-background" />
 
           <div className="projects-reel-stack">
-            {featuredProject.frames.map((frame, index) => (
-              <div
-                key={frame.id}
-                className={`projects-reel-layer projects-reel-layer-${index + 1}`}
-              >
-                <Image
-                  src={frame.src}
-                  alt={frame.alt}
-                  fill
-                  sizes="50vw"
-                  className="projects-reel-image"
-                  priority={index === 0}
-                />
-              </div>
-            ))}
+            {featuredProject.frames.map(
+              (frame, index) => (
+                <div
+                  key={frame.id}
+                  className={`projects-reel-layer projects-reel-layer-${
+                    index + 1
+                  }`}
+                >
+                  <Image
+                    src={frame.src}
+                    alt={frame.alt}
+                    fill
+                    sizes="50vw"
+                    className="projects-reel-image"
+                    priority={
+                      index === 0
+                    }
+                  />
+                </div>
+              ),
+            )}
           </div>
         </div>
 

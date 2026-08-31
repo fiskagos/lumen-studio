@@ -3,6 +3,7 @@
 import {
   useEffect,
   useState,
+  type MouseEvent,
 } from "react";
 
 const words = [
@@ -23,10 +24,6 @@ export default function Hero() {
   const [openingFinished, setOpeningFinished] =
     useState(false);
 
-  /* =========================================
-     WAIT FOR LUMEN OPENING
-     ========================================= */
-
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setOpeningFinished(true);
@@ -37,12 +34,8 @@ export default function Hero() {
     };
   }, []);
 
-  /* =========================================
-     CAPABILITY CLICK
-     ========================================= */
-
   function handleCapabilityClick(
-    event: React.MouseEvent<HTMLAnchorElement>,
+    event: MouseEvent<HTMLAnchorElement>,
     capability: string,
   ) {
     event.preventDefault();
@@ -68,20 +61,18 @@ export default function Hero() {
         openingFinished ? "is-ready" : ""
       }`}
     >
-      {/* =====================================
-          BRAND
-          ===================================== */}
-
+      {/* BRAND */}
       <a
         href="#hero"
         aria-label="Back to top"
         className={`lumen-hero-brand ${
-          openingFinished ? "dots-visible" : ""
+          openingFinished
+            ? "dots-visible"
+            : ""
         }`}
       >
         <span className="lumen-brand-letter">
           L
-
           <span
             className="lumen-brand-dot lumen-brand-dot-1"
             aria-hidden="true"
@@ -92,7 +83,6 @@ export default function Hero() {
 
         <span className="lumen-brand-letter">
           M
-
           <span
             className="lumen-brand-dot lumen-brand-dot-2"
             aria-hidden="true"
@@ -103,7 +93,6 @@ export default function Hero() {
 
         <span className="lumen-brand-letter">
           N
-
           <span
             className="lumen-brand-dot lumen-brand-dot-3"
             aria-hidden="true"
@@ -111,10 +100,7 @@ export default function Hero() {
         </span>
       </a>
 
-      {/* =====================================
-          HERO STATEMENT
-          ===================================== */}
-
+      {/* HERO STATEMENT */}
       {openingFinished && (
         <div className="lumen-final-statement">
           <h1>
@@ -125,10 +111,7 @@ export default function Hero() {
         </div>
       )}
 
-      {/* =====================================
-          FIXED CAPABILITIES
-          ===================================== */}
-
+      {/* CAPABILITIES */}
       <div className="lumen-hero-footer-capabilities">
         {words.map((word, index) => (
           <span
@@ -166,21 +149,6 @@ export default function Hero() {
           </span>
         ))}
       </div>
-
-      {/* =====================================
-          NEXT SCENE
-          ===================================== */}
-
-      <button
-  type="button"
-  className="lumen-scene-nav lumen-scene-nav-next"
-  aria-label="Next"
->
- <span
-  className="lumen-scene-nav-arrow"
-  aria-hidden="true"
-/>
-</button>
     </section>
   );
 }

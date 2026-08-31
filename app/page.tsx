@@ -1,110 +1,43 @@
 
-import ProjectStart from "@/components/ProjectStart";
-import Hero from "@/components/Hero";
 import CapabilitiesHeading from "@/components/CapabilitiesHeading";
+import ProjectStart from "@/components/ProjectStart";
 import FounderHeading from "@/components/FounderHeading";
-import CapabilitiesSection from "@/components/CapabilitiesSection";
 import ApproachStatement from "@/components/ApproachStatement";
 import FinalReveal from "@/components/FinalReveal";
-import ProjectsSection from "@/components/ProjectsSection";
 import ContactMotion from "../components/ContactMotion";
 import LumenOpening from "@/components/LumenOpening";
-import LumenScenes from "@/components/LumenScenes";
+import HeroProjectsStage from "@/components/HeroProjectsStage";
+
 
 export default function Home() {
-return (
-  <main className="lumen-home">
+  return (
+    <main className="lumen-home">
 
-    {/* LUMEN OPENING */}
-<LumenOpening />
+      {/* LUMEN OPENING */}
+      <LumenOpening />
 
-{/* HORIZONTAL SCENES */}
-<LumenScenes>
-  {/* HERO */}
-  <Hero />
+      {/* HERO / PROJECTS / CAPABILITIES */}
+      <HeroProjectsStage />
 
-  {/* PROJECTS */}
-  <ProjectsSection />
-</LumenScenes>
-
-{/* CAPABILITIES / APPROACH */}
-<section
-  id="capabilities"
-  className="capabilities-section"
->
-  <div className="capabilities-intro">
-    <CapabilitiesHeading
-      firstLine="Thoughtfully designed."
-      secondLine="Seriously engineered."
-    />
-  </div>
-
-  <CapabilitiesSection />
-</section>
-
-      {/* HUMAN APPROACH */}
-   <section className="approach-section">
-
-  <div className="approach-heading">
-    <CapabilitiesHeading
-      firstLine="Built with you."
-      secondLine="Not just for you."
-    />
-  </div>
-
-  <ApproachStatement />
-
-</section>
+      {/* APPROACH */}
+      <section className="approach-section">
+        <ApproachStatement />
+      </section>
 
       {/* FOUNDER */}
-<section className="founder-section">
+      <section className="founder-section">
 
-  <div className="founder-label">
-    THE PERSON BEHIND LUMEN
-  </div>
+        <div className="founder-label">
+          THE PERSON BEHIND LUMEN
+        </div>
 
-  <div className="founder-content">
+        <div className="founder-content">
+          <FounderHeading />
 
-    <FounderHeading />
+          {/* restul conținutului founder pe care îl ai deja */}
+        </div>
 
- <div className="founder-bio">
-  <p>
-    My background is in software engineering, but I’ve always been drawn to
-    the space where technology, design and human experience meet.
-  </p>
-
-  <p>
-    Years spent working across digital experience at Netcentric and Adobe,
-    and later building complex systems in the pharmaceutical world, shaped
-    the way I think about technology: not just how things look, but how they
-    work, scale and last.
-  </p>
-
-  <p>
-    But I’ve always been a creator at heart. There’s something remarkable
-    about taking an idea that exists only in someone’s mind and giving it
-    form, making something that didn’t exist before and could only belong
-    to that person.
-  </p>
-
-  <p>
-    I created Lumen to bring those two worlds together: the freedom of
-    creating something unique and the discipline of engineering it well.
-  </p>
-
-  <p>
-    Thoughtful design. Serious engineering.
-  </p>
-</div>
-
-  </div>
-
-  <div className="founder-footer">
-    <span>PAULA BANCIU</span>
-    <span>FOUNDER · DESIGNER · ENGINEER</span>
-  </div>
-
-</section>
+      </section>
 
 {/* CONTACT */}
 <section className="contact-section">

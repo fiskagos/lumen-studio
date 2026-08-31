@@ -1,178 +1,114 @@
 "use client";
 
-import {useEffect, useState} from "react";
-import CapabilityRow from "./CapabilityRow";
+import {useState} from "react";
 
 const capabilities = [
   {
-    id: "design",
     title: "DESIGN",
-    preview:
-      "DIGITAL EXPERIENCES SHAPED AROUND THE IDEA, NOT AROUND A TEMPLATE.",
-    services: [
-      "WEBSITE DESIGN",
-      "UX / UI",
-      "INFORMATION ARCHITECTURE",
-      "RESPONSIVE DESIGN",
+    tags: [
+      "IDENTITY",
+      "ART DIRECTION",
+      "DIGITAL PRESENCE",
       "VISUAL SYSTEMS",
-      "INTERACTION DIRECTION",
     ],
-    detail:
-      "We shape how your digital presence looks, feels and works before a line of production code is written. From structure and page flow to typography, layout, interaction and responsive behaviour, we design the experience around the idea and the people using it.",
+    body:
+      "We shape clear, distinctive digital identities built around how a company wants to be seen, understood and remembered.",
   },
   {
-    id: "commerce",
     title: "COMMERCE",
-    preview:
-      "THOUGHTFUL STOREFRONTS BUILT TO MAKE DISCOVERY AND BUYING FEEL EFFORTLESS.",
-    services: [
+    tags: [
       "SHOPIFY",
       "PRODUCT STRUCTURE",
       "COLLECTION ARCHITECTURE",
-      "PRODUCT PAGES",
-      "CART EXPERIENCE",
       "COMMERCE UX",
     ],
-    detail:
-      "We design commerce around the way people actually discover, understand and buy your work or product. The goal is not simply to create a shop, but to make the path from interest to purchase feel clear and natural.",
+    body:
+      "We design commerce around how people discover, understand and buy, making the path from interest to purchase feel clear and natural.",
   },
   {
-    id: "ai",
     title: "AI",
-    preview:
-      "USEFUL INTELLIGENCE WOVEN INTO THE EXPERIENCE WHERE IT GENUINELY ADDS VALUE.",
-    services: [
-      "AI INTEGRATIONS",
-      "SMART WORKFLOWS",
+    tags: [
+      "AI FLOWS",
       "AUTOMATION",
-      "SEARCH ASSISTANCE",
-      "CONTENT ASSISTANCE",
-      "CUSTOM AI EXPERIENCES",
+      "SMART SYSTEMS",
+      "CONTENT SUPPORT",
     ],
-    detail:
-      "We use AI where it removes friction, saves time or creates a genuinely better experience. The technology should serve the product and the people using it, not exist simply because AI happens to be fashionable this decade.",
+    body:
+      "We apply AI where it genuinely improves the work, supporting better systems, workflows and customer experiences without unnecessary noise.",
   },
   {
-    id: "engineering",
     title: "ENGINEERING",
-    preview:
-      "CAREFULLY ENGINEERED SYSTEMS BUILT FOR PERFORMANCE, FLEXIBILITY AND LONGEVITY.",
-    services: [
-      "FRONTEND DEVELOPMENT",
-      "NEXT.JS / REACT",
-      "SHOPIFY DEVELOPMENT",
-      "API INTEGRATIONS",
+    tags: [
+      "ARCHITECTURE",
       "PERFORMANCE",
-      "TECHNICAL ARCHITECTURE",
+      "SCALABILITY",
+      "MAINTAINABILITY",
     ],
-    detail:
-      "We turn the design into a fast, flexible and maintainable digital product. The build is considered as carefully as the interface, so the system can evolve without becoming increasingly painful to work with.",
+    body:
+      "We build systems with technical discipline, designed to perform well, scale sensibly and remain maintainable over time.",
   },
 ] as const;
 
-type CapabilityTitle =
-  (typeof capabilities)[number]["title"];
-
 export default function CapabilitiesSection() {
-  const [activeCapability, setActiveCapability] =
-    useState<CapabilityTitle | null>(null);
+  const [activeIndex, setActiveIndex] =
+    useState<number | null>(null);
 
-  /*
-    Open the correct capability when arriving
-    from one of the hero footer links.
-  */
-
- useEffect(() => {
-  function handleCapabilityNavigation(
-    event: Event,
-  ) {
-    const customEvent =
-      event as CustomEvent<string>;
-
-    const capability = capabilities.find(
-      (item) =>
-        item.id === customEvent.detail,
-    );
-
-    if (capability) {
-      setActiveCapability(
-        capability.title,
-      );
-    }
-  }
-
-  window.addEventListener(
-    "lumen:capability",
-    handleCapabilityNavigation,
-  );
-
-  return () => {
-    window.removeEventListener(
-      "lumen:capability",
-      handleCapabilityNavigation,
-    );
-  };
-}, []);
-
-  const active = capabilities.find(
-    (capability) =>
-      capability.title === activeCapability,
-  );
+  const active =
+    activeIndex !== null
+      ? capabilities[activeIndex]
+      : null;
 
   return (
-    <div
-      className="capabilities-layout"
-      onMouseLeave={() =>
-        setActiveCapability(null)
-      }
-    >
-      {/* CAPABILITY LIST */}
+    <div className="capabilities-experience">
 
-      <div className="capabilities-list">
-        {capabilities.map((capability) => (
-          <div
-  key={capability.title}
-  className="capability-anchor"
->
-            <CapabilityRow
-              title={capability.title}
-              description={capability.preview}
-              isOpen={
-                activeCapability ===
-                capability.title
-              }
-              onActivate={() =>
-                setActiveCapability(
-                  capability.title,
-                )
-              }
-            />
-          </div>
+      {/* HOVER NOTE */}
+      <div
+        className={`capability-hover-note ${
+          active ? "is-visible" : ""
+        }`}
+      >
+        {active && (
+          <>
+            <div className="capability-hover-tags">
+              {active.tags.map((tag) => (
+                <span key={tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <p>
+              {active.body}
+            </p>
+          </>
+        )}
+      </div>
+
+      {/* CAPABILITIES */}
+      <div className="capabilities-horizontal">
+        {capabilities.map((item, index) => (
+          <button
+            key={item.title}
+            type="button"
+            className="capabilities-horizontal-item"
+            onMouseEnter={() =>
+              setActiveIndex(index)
+            }
+            onMouseLeave={() =>
+              setActiveIndex(null)
+            }
+            onFocus={() =>
+              setActiveIndex(index)
+            }
+            onBlur={() =>
+              setActiveIndex(null)
+            }
+          >
+            {item.title}
+          </button>
         ))}
       </div>
 
-      {/* DETAIL PANEL */}
-
-      <aside className="capability-panel">
-        {active && (
-          <div
-            key={active.title}
-            className="capability-panel-content"
-          >
-            <div className="capability-panel-services">
-              {active.services.map(
-                (service) => (
-                  <span key={service}>
-                    {service}
-                  </span>
-                ),
-              )}
-            </div>
-
-            <p>{active.detail}</p>
-          </div>
-        )}
-      </aside>
     </div>
   );
 }
