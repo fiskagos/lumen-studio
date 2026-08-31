@@ -81,6 +81,7 @@ export default function Hero() {
       >
         <span className="lumen-brand-letter">
           L
+
           <span
             className="lumen-brand-dot lumen-brand-dot-1"
             aria-hidden="true"
@@ -91,6 +92,7 @@ export default function Hero() {
 
         <span className="lumen-brand-letter">
           M
+
           <span
             className="lumen-brand-dot lumen-brand-dot-2"
             aria-hidden="true"
@@ -101,6 +103,7 @@ export default function Hero() {
 
         <span className="lumen-brand-letter">
           N
+
           <span
             className="lumen-brand-dot lumen-brand-dot-3"
             aria-hidden="true"
@@ -163,6 +166,21 @@ export default function Hero() {
           </span>
         ))}
       </div>
+
+      {/* =====================================
+          NEXT SCENE
+          ===================================== */}
+
+      <button
+  type="button"
+  className="lumen-scene-nav lumen-scene-nav-next"
+  aria-label="Next"
+>
+ <span
+  className="lumen-scene-nav-arrow"
+  aria-hidden="true"
+/>
+</button>
     </section>
   );
 }

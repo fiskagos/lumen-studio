@@ -9,35 +9,38 @@ import FinalReveal from "@/components/FinalReveal";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactMotion from "../components/ContactMotion";
 import LumenOpening from "@/components/LumenOpening";
+import LumenScenes from "@/components/LumenScenes";
 
 export default function Home() {
 return (
   <main className="lumen-home">
 
     {/* LUMEN OPENING */}
-    <LumenOpening />
+<LumenOpening />
 
-    {/* HERO */}
-    <Hero />
+{/* HORIZONTAL SCENES */}
+<LumenScenes>
+  {/* HERO */}
+  <Hero />
 
-    {/* PROJECTS */}
-    <ProjectsSection />
+  {/* PROJECTS */}
+  <ProjectsSection />
+</LumenScenes>
 
-    {/* CAPABILITIES / APPROACH */}
-    <section
-      id="capabilities"
-      className="capabilities-section"
-    >
-      <div className="capabilities-intro">
-        <CapabilitiesHeading
-          firstLine="Thoughtfully designed."
-          secondLine="Seriously engineered."
-        />
-      </div>
+{/* CAPABILITIES / APPROACH */}
+<section
+  id="capabilities"
+  className="capabilities-section"
+>
+  <div className="capabilities-intro">
+    <CapabilitiesHeading
+      firstLine="Thoughtfully designed."
+      secondLine="Seriously engineered."
+    />
+  </div>
 
-      <CapabilitiesSection />
-    </section>
-
+  <CapabilitiesSection />
+</section>
 
       {/* HUMAN APPROACH */}
    <section className="approach-section">

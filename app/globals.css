@@ -3034,16 +3034,6 @@ body:has(.final-reveal.is-visible)
 }
 
 
-@media (hover: hover) and (pointer: fine) {
-
-  .projects-site-link:hover {
-    text-decoration: underline;
-
-    text-decoration-thickness: 1px;
-    text-underline-offset: 5px;
-  }
-
-}
 /* =========================================
    PROJECTS — RETURN VISIT
    ========================================= */
@@ -3804,4 +3794,153 @@ body:has(.final-reveal.is-visible)
 html {
   scroll-snap-type: none !important;
   scroll-behavior: auto !important;
+}
+/* =========================================
+   LUMEN — SCENE NAVIGATION
+   ========================================= */
+
+.lumen-scene-nav {
+  position: fixed;
+
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  width: clamp(180px, 18vw, 340px);
+
+  padding: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  z-index: 500;
+}
+
+
+/* =========================================
+   ARROW
+   ========================================= */
+
+.lumen-scene-nav-arrow {
+  position: absolute;
+
+  top: 50%;
+  right: -20px;
+
+  width: 90px;
+  height: 140px;
+
+  opacity: 0;
+
+  transform:
+    translateY(-50%)
+    translateX(26px);
+
+  transition:
+    opacity 280ms ease,
+    transform 520ms
+      cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* TOP STROKE */
+
+.lumen-scene-nav-arrow::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 18px;
+
+  width: 72px;
+  height: 2px;
+
+  background: #111111;
+
+  transform-origin: right center;
+
+  transform:
+    translateY(-50%)
+    rotate(38deg)
+    scaleX(0.7);
+
+  transition:
+    transform 520ms
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* BOTTOM STROKE */
+
+.lumen-scene-nav-arrow::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 18px;
+
+  width: 72px;
+  height: 2px;
+
+  background: #111111;
+
+  transform-origin: right center;
+
+  transform:
+    translateY(-50%)
+    rotate(-38deg)
+    scaleX(0.7);
+
+  transition:
+    transform 520ms
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.lumen-scene-nav:hover
+.lumen-scene-nav-arrow {
+  opacity: 1;
+
+  transform:
+    translateY(-50%)
+    translateX(-42px);
+}
+
+.lumen-scene-nav:hover
+.lumen-scene-nav-arrow::before {
+  transform:
+    translateY(-50%)
+    rotate(38deg)
+    scaleX(1);
+}
+
+.lumen-scene-nav:hover
+.lumen-scene-nav-arrow::after {
+  transform:
+    translateY(-50%)
+    rotate(-38deg)
+    scaleX(1);
+}
+
+
+/* =========================================
+   CLICK
+   ========================================= */
+
+.lumen-scene-nav:active
+.lumen-scene-nav-arrow {
+  transform:
+    translateY(-50%)
+    translateX(-30px)
+    scale(0.96);
 }
