@@ -1,10 +1,7 @@
 "use client";
 
 import {
-  type CSSProperties,
   useEffect,
-  useLayoutEffect,
-  useRef,
   useState,
 } from "react";
 
@@ -22,113 +19,23 @@ const capabilityTargets = [
   "engineering",
 ] as const;
 
-type MotionStyle = CSSProperties & {
-  "--target-x": string;
-  "--target-y": string;
-  "--target-scale": number;
-};
-
 export default function Hero() {
-  /*
-   * TEMP DEBUG:
-   * ținem Hero-ul activ permanent.
-   */
-  const [openingFinished, setOpeningFinished] = useState(false);
+  const [openingFinished, setOpeningFinished] =
+    useState(false);
 
-  const [step, setStep] = useState(0);
-  const [settledCount, setSettledCount] = useState(0);
+  /* =========================================
+     WAIT FOR LUMEN OPENING
+     ========================================= */
 
-  const [motionStyle, setMotionStyle] =
-    useState<MotionStyle>({
-      "--target-x": "0px",
-      "--target-y": "0px",
-      "--target-scale": 0.1,
-    });
-
-  const heroRef = useRef<HTMLElement | null>(null);
-  const wordRef = useRef<HTMLDivElement | null>(null);
-
-  const targetRefs =
-    useRef<(HTMLAnchorElement | null)[]>([]);
-
-  const introFinished = true;
   useEffect(() => {
-  const timer = window.setTimeout(() => {
-    setOpeningFinished(true);
-  }, 5200);
+    const timer = window.setTimeout(() => {
+      setOpeningFinished(true);
+    }, 5200);
 
-  return () => {
-    window.clearTimeout(timer);
-  };
-}, []);
-
-  /* =========================================
-     CALCULATE INTRO WORD MOVEMENT
-     ========================================= */
-
-  useLayoutEffect(() => {
-    if (!openingFinished || introFinished) {
-      return;
-    }
-
-    const hero = heroRef.current;
-    const word = wordRef.current;
-    const target = targetRefs.current[step];
-
-    if (!hero || !word || !target) {
-      return;
-    }
-
-    const heroRect = hero.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-
-    const heroCenterX =
-      heroRect.left + heroRect.width / 2;
-
-    const heroCenterY =
-      heroRect.top + heroRect.height / 2;
-
-    const targetCenterX =
-      targetRect.left + targetRect.width / 2;
-
-    const targetCenterY =
-      targetRect.top + targetRect.height / 2;
-
-    const wordFontSize = parseFloat(
-      window.getComputedStyle(word).fontSize
-    );
-
-    const targetFontSize = parseFloat(
-      window.getComputedStyle(target).fontSize
-    );
-
-    setMotionStyle({
-      "--target-x": `${
-        targetCenterX - heroCenterX
-      }px`,
-
-      "--target-y": `${
-        targetCenterY - heroCenterY
-      }px`,
-
-      "--target-scale":
-        targetFontSize / wordFontSize,
-    });
-  }, [
-    step,
-    introFinished,
-    openingFinished,
-  ]);
-
-  /* =========================================
-     INTRO WORD FINISHED
-     ========================================= */
-
-  function handleWordFinished() {
-    setSettledCount(step + 1);
-
-    setStep((current) => current + 1);
-  }
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, []);
 
   /* =========================================
      CAPABILITY CLICK
@@ -157,13 +64,10 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      ref={heroRef}
       className={`lumen-intro-hero ${
-  openingFinished ? "is-ready" : ""
-}`}
+        openingFinished ? "is-ready" : ""
+      }`}
     >
-  
-
       {/* =====================================
           BRAND
           ===================================== */}
@@ -172,14 +76,11 @@ export default function Hero() {
         href="#hero"
         aria-label="Back to top"
         className={`lumen-hero-brand ${
-          openingFinished && introFinished
-            ? "dots-visible"
-            : ""
+          openingFinished ? "dots-visible" : ""
         }`}
       >
         <span className="lumen-brand-letter">
           L
-
           <span
             className="lumen-brand-dot lumen-brand-dot-1"
             aria-hidden="true"
@@ -190,7 +91,6 @@ export default function Hero() {
 
         <span className="lumen-brand-letter">
           M
-
           <span
             className="lumen-brand-dot lumen-brand-dot-2"
             aria-hidden="true"
@@ -201,7 +101,6 @@ export default function Hero() {
 
         <span className="lumen-brand-letter">
           N
-
           <span
             className="lumen-brand-dot lumen-brand-dot-3"
             aria-hidden="true"
@@ -209,13 +108,11 @@ export default function Hero() {
         </span>
       </a>
 
-     
-
       {/* =====================================
-          FINAL STATEMENT
+          HERO STATEMENT
           ===================================== */}
 
-      {openingFinished && introFinished && (
+      {openingFinished && (
         <div className="lumen-final-statement">
           <h1>
             <span>Ideas deserve</span>
@@ -226,7 +123,7 @@ export default function Hero() {
       )}
 
       {/* =====================================
-          FOOTER CAPABILITIES
+          FIXED CAPABILITIES
           ===================================== */}
 
       <div className="lumen-hero-footer-capabilities">
@@ -238,8 +135,10 @@ export default function Hero() {
             {index > 0 && (
               <span
                 className={`lumen-hero-separator ${
-  openingFinished ? "is-visible" : ""
-}`}
+                  openingFinished
+                    ? "is-visible"
+                    : ""
+                }`}
               >
                 ·
               </span>
@@ -253,12 +152,11 @@ export default function Hero() {
                   capabilityTargets[index],
                 )
               }
-              ref={(element) => {
-                targetRefs.current[index] = element;
-              }}
               className={`lumen-hero-capability ${
-  openingFinished ? "is-visible" : ""
-}`}
+                openingFinished
+                  ? "is-visible"
+                  : ""
+              }`}
             >
               {word}
             </a>
