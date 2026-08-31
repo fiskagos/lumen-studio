@@ -2,6 +2,7 @@
 
 import {
   type CSSProperties,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -28,6 +29,12 @@ type MotionStyle = CSSProperties & {
 };
 
 export default function Hero() {
+  /*
+   * TEMP DEBUG:
+   * ținem Hero-ul activ permanent.
+   */
+  const [openingFinished, setOpeningFinished] = useState(false);
+
   const [step, setStep] = useState(0);
   const [settledCount, setSettledCount] = useState(0);
 
@@ -44,10 +51,23 @@ export default function Hero() {
   const targetRefs =
     useRef<(HTMLAnchorElement | null)[]>([]);
 
-  const introFinished = step >= words.length;
+  const introFinished = true;
+  useEffect(() => {
+  const timer = window.setTimeout(() => {
+    setOpeningFinished(true);
+  }, 5200);
+
+  return () => {
+    window.clearTimeout(timer);
+  };
+}, []);
+
+  /* =========================================
+     CALCULATE INTRO WORD MOVEMENT
+     ========================================= */
 
   useLayoutEffect(() => {
-    if (introFinished) {
+    if (!openingFinished || introFinished) {
       return;
     }
 
@@ -94,37 +114,56 @@ export default function Hero() {
       "--target-scale":
         targetFontSize / wordFontSize,
     });
-  }, [step, introFinished]);
+  }, [
+    step,
+    introFinished,
+    openingFinished,
+  ]);
+
+  /* =========================================
+     INTRO WORD FINISHED
+     ========================================= */
 
   function handleWordFinished() {
     setSettledCount(step + 1);
+
     setStep((current) => current + 1);
   }
-function handleCapabilityClick(
-  event: React.MouseEvent<HTMLAnchorElement>,
-  capability: string,
-) {
-  event.preventDefault();
 
-  window.dispatchEvent(
-    new CustomEvent("lumen:capability", {
-      detail: capability,
-    }),
-  );
+  /* =========================================
+     CAPABILITY CLICK
+     ========================================= */
 
-  document
-    .getElementById("capabilities")
-    ?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-}
+  function handleCapabilityClick(
+    event: React.MouseEvent<HTMLAnchorElement>,
+    capability: string,
+  ) {
+    event.preventDefault();
+
+    window.dispatchEvent(
+      new CustomEvent("lumen:capability", {
+        detail: capability,
+      }),
+    );
+
+    document
+      .getElementById("capabilities")
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+  }
+
   return (
     <section
       id="hero"
       ref={heroRef}
-      className="lumen-intro-hero"
+      className={`lumen-intro-hero ${
+  openingFinished ? "is-ready" : ""
+}`}
     >
+  
+
       {/* =====================================
           BRAND
           ===================================== */}
@@ -133,11 +172,14 @@ function handleCapabilityClick(
         href="#hero"
         aria-label="Back to top"
         className={`lumen-hero-brand ${
-          introFinished ? "dots-visible" : ""
+          openingFinished && introFinished
+            ? "dots-visible"
+            : ""
         }`}
       >
         <span className="lumen-brand-letter">
           L
+
           <span
             className="lumen-brand-dot lumen-brand-dot-1"
             aria-hidden="true"
@@ -148,6 +190,7 @@ function handleCapabilityClick(
 
         <span className="lumen-brand-letter">
           M
+
           <span
             className="lumen-brand-dot lumen-brand-dot-2"
             aria-hidden="true"
@@ -158,6 +201,7 @@ function handleCapabilityClick(
 
         <span className="lumen-brand-letter">
           N
+
           <span
             className="lumen-brand-dot lumen-brand-dot-3"
             aria-hidden="true"
@@ -165,33 +209,13 @@ function handleCapabilityClick(
         </span>
       </a>
 
-
-      {/* =====================================
-          INTRO WORD
-          ===================================== */}
-
-      {!introFinished && (
-        <div
-          key={words[step]}
-          className="lumen-intro-stage"
-        >
-          <div
-            ref={wordRef}
-            className="lumen-intro-word lumen-intro-trackingOversize"
-            style={motionStyle}
-            onAnimationEnd={handleWordFinished}
-          >
-            {words[step]}
-          </div>
-        </div>
-      )}
-
+     
 
       {/* =====================================
           FINAL STATEMENT
           ===================================== */}
 
-      {introFinished && (
+      {openingFinished && introFinished && (
         <div className="lumen-final-statement">
           <h1>
             <span>Ideas deserve</span>
@@ -200,7 +224,6 @@ function handleCapabilityClick(
           </h1>
         </div>
       )}
-
 
       {/* =====================================
           FOOTER CAPABILITIES
@@ -215,51 +238,33 @@ function handleCapabilityClick(
             {index > 0 && (
               <span
                 className={`lumen-hero-separator ${
-                  settledCount > index
-                    ? "is-visible"
-                    : ""
-                }`}
+  openingFinished ? "is-visible" : ""
+}`}
               >
                 ·
               </span>
             )}
 
             <a
-  href="#capabilities"
-  onClick={(event) =>
-    handleCapabilityClick(
-      event,
-      capabilityTargets[index],
-    )
-  }
-  ref={(element) => {
-    targetRefs.current[index] = element;
-  }}
-  className={`lumen-hero-capability ${
-    settledCount > index
-      ? "is-visible"
-      : ""
-  }`}
->
-  {word}
-</a>
+              href="#capabilities"
+              onClick={(event) =>
+                handleCapabilityClick(
+                  event,
+                  capabilityTargets[index],
+                )
+              }
+              ref={(element) => {
+                targetRefs.current[index] = element;
+              }}
+              className={`lumen-hero-capability ${
+  openingFinished ? "is-visible" : ""
+}`}
+            >
+              {word}
+            </a>
           </span>
         ))}
       </div>
-
-
-      {/* =====================================
-          LINKEDIN
-          ===================================== */}
-
-      <a
-        className="lumen-hero-linkedin"
-        href="https://www.linkedin.com/company/lumen-studio-design/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        LINKEDIN
-      </a>
     </section>
   );
 }
