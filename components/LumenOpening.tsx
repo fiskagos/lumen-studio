@@ -6,9 +6,16 @@ export default function LumenOpening() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setIsVisible(false);
-    }, 5000);
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const timer = window.setTimeout(
+      () => {
+        setIsVisible(false);
+      },
+      reducedMotion ? 450 : 5000,
+    );
 
     return () => {
       window.clearTimeout(timer);

@@ -25,9 +25,16 @@ export default function Hero() {
     useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setOpeningFinished(true);
-    }, 5200);
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const timer = window.setTimeout(
+      () => {
+        setOpeningFinished(true);
+      },
+      reducedMotion ? 450 : 5200,
+    );
 
     return () => {
       window.clearTimeout(timer);
@@ -46,10 +53,16 @@ export default function Hero() {
       }),
     );
 
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     document
       .getElementById("capabilities")
       ?.scrollIntoView({
-        behavior: "smooth",
+        behavior: reducedMotion
+          ? "auto"
+          : "smooth",
         block: "start",
       });
   }

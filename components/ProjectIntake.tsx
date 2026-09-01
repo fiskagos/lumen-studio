@@ -60,9 +60,16 @@ export default function ProjectIntake({
      * Actual form submission / email handling
      * will be connected later.
      */
-    window.setTimeout(() => {
-      setIsSubmitted(true);
-    }, 650);
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    window.setTimeout(
+      () => {
+        setIsSubmitted(true);
+      },
+      reducedMotion ? 0 : 650,
+    );
   }
 
   if (isSubmitted) {
@@ -287,45 +294,74 @@ export default function ProjectIntake({
               </div>
 
               <div className="intake-fields">
-                <input
-                  className="intake-field"
-                  type="text"
-                  placeholder="YOUR NAME"
-                  value={name}
-                  onChange={(event) =>
-                    setName(event.target.value)
-                  }
-                />
+                <label className="intake-field-group">
+                  <span className="intake-field-label">
+                    YOUR NAME
+                  </span>
 
-                <input
-                  className="intake-field"
-                  type="email"
-                  placeholder="EMAIL"
-                  value={email}
-                  onChange={(event) =>
-                    setEmail(event.target.value)
-                  }
-                />
+                  <input
+                    className="intake-field"
+                    type="text"
+                    autoComplete="name"
+                    value={name}
+                    onChange={(event) =>
+                      setName(event.target.value)
+                    }
+                  />
+                </label>
 
-                <input
-                  className="intake-field"
-                  type="url"
-                  placeholder="EXISTING WEBSITE — OPTIONAL"
-                  value={website}
-                  onChange={(event) =>
-                    setWebsite(event.target.value)
-                  }
-                />
+                <label className="intake-field-group">
+                  <span className="intake-field-label">
+                    EMAIL
+                  </span>
 
-                <input
-                  className="intake-field"
-                  type="text"
-                  placeholder="BUDGET RANGE — OPTIONAL"
-                  value={budget}
-                  onChange={(event) =>
-                    setBudget(event.target.value)
-                  }
-                />
+                  <input
+                    className="intake-field"
+                    type="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(event) =>
+                      setEmail(event.target.value)
+                    }
+                  />
+                </label>
+
+                <label className="intake-field-group">
+                  <span className="intake-field-label">
+                    EXISTING WEBSITE
+                    <span className="intake-field-optional">
+                      OPTIONAL
+                    </span>
+                  </span>
+
+                  <input
+                    className="intake-field"
+                    type="url"
+                    inputMode="url"
+                    value={website}
+                    onChange={(event) =>
+                      setWebsite(event.target.value)
+                    }
+                  />
+                </label>
+
+                <label className="intake-field-group">
+                  <span className="intake-field-label">
+                    BUDGET RANGE
+                    <span className="intake-field-optional">
+                      OPTIONAL
+                    </span>
+                  </span>
+
+                  <input
+                    className="intake-field"
+                    type="text"
+                    value={budget}
+                    onChange={(event) =>
+                      setBudget(event.target.value)
+                    }
+                  />
+                </label>
               </div>
 
               <div className="intake-navigation">

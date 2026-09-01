@@ -3116,9 +3116,6 @@ a {
    ========================================= */
 
 
-.projects-clean-section.is-settled
-
-
 /* PROJECT LINK */
 
 .projects-site-link {
@@ -4223,7 +4220,7 @@ html {
   width: 72px;
   height: 110px;
 
-  opacity: 0;
+  opacity: 0.14;
 
   transition:
     opacity 300ms ease,
@@ -5501,5 +5498,290 @@ html {
 
     filter:
       blur(0);
+  }
+}
+
+/* =========================================
+   LUMEN — SCENE PROGRESS
+   ========================================= */
+
+.lumen-stage-progress {
+  position: absolute;
+
+  left: 50%;
+  bottom: 28px;
+
+  z-index: 600;
+
+  transform: translateX(-50%);
+
+  pointer-events: none;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: 0.12em;
+
+  color: rgba(17, 17, 17, 0.36);
+}
+
+
+/* =========================================
+   PROJECT INTAKE — FIELD POLISH
+   ========================================= */
+
+.intake-field-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  width: 100%;
+}
+
+.intake-field-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: 0.09em;
+
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.intake-field-optional {
+  margin-left: 16px;
+
+  font-size: 9px;
+  font-weight: 400;
+
+  letter-spacing: 0.08em;
+
+  color: rgba(17, 17, 17, 0.32);
+}
+
+
+/* INPUT FOCUS */
+
+.intake-field {
+  outline: none;
+}
+
+.intake-field:focus {
+  border-color: rgba(17, 17, 17, 0.75);
+}
+
+
+/* TEXTAREA FOCUS */
+
+.intake-textarea {
+  outline: none;
+}
+
+.intake-textarea:focus {
+  border-color: rgba(17, 17, 17, 0.75);
+}
+
+
+/* KEYBOARD FOCUS */
+
+.intake-service:focus-visible,
+.intake-nav-button:focus-visible,
+.intake-submit:focus-visible,
+.intake-close:focus-visible,
+.project-start-button:focus-visible,
+.project-success-close:focus-visible,
+.lumen-stage-nav:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 6px;
+}
+
+
+/* =========================================
+   LUMEN — REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  /*
+   * OPENING
+   */
+
+  .lumen-opening,
+  .lumen-opening *,
+  .lumen-opening *::before,
+  .lumen-opening *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .lumen-opening-letter {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .lumen-opening-dot {
+    opacity: 1 !important;
+    transform: translateX(-50%) scale(1) !important;
+  }
+
+
+  /*
+   * HERO
+   */
+
+  .lumen-final-statement h1 span {
+    opacity: 1 !important;
+
+    transform: none !important;
+    filter: none !important;
+
+    clip-path: inset(0 0 0 0) !important;
+
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .lumen-hero-brand,
+  .lumen-brand-dot,
+  .lumen-hero-capability,
+  .lumen-hero-separator {
+    animation: none !important;
+    transition: none !important;
+  }
+
+
+  /*
+   * HORIZONTAL SCENES
+   */
+
+  .lumen-hp-scene {
+    transition: none !important;
+  }
+
+  .lumen-stage-chevron {
+    transition: none !important;
+  }
+
+
+  /*
+   * CAPABILITIES
+   */
+
+  .capability-hover-note {
+    transition: none !important;
+  }
+
+
+  /*
+   * APPROACH / FINAL COPY
+   */
+
+  .approach-flip-text {
+    animation: none !important;
+    transition: none !important;
+
+    transform: none !important;
+  }
+
+
+  /*
+   * BRING IT TO LIFE
+   */
+
+  .project-start-line,
+  .project-start-line-1,
+  .project-start-line-2 {
+    opacity: 1 !important;
+
+    transform: none !important;
+    filter: none !important;
+
+    animation: none !important;
+    transition: none !important;
+  }
+
+
+  /*
+   * PROJECT INTAKE
+   */
+
+  .project-intake,
+  .project-intake-sheet,
+  .intake-content {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .project-intake.is-submitting
+  .project-intake-sheet {
+    opacity: 1 !important;
+    transform: rotate(-0.3deg) !important;
+    filter: none !important;
+  }
+
+
+  /*
+   * PROJECT SUCCESS
+   *
+   * No ignition / flicker.
+   * Show the finished LUMEN state immediately.
+   */
+
+  .project-success,
+  .project-success-stage,
+  .project-success-logo,
+  .project-success-letter,
+  .project-success-dot,
+  .project-success-copy,
+  .project-success-copy span {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .project-success-letter {
+    opacity: 1 !important;
+
+    color: rgba(255, 255, 255, 0.96) !important;
+
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 0.35) !important;
+  }
+
+  .project-success-dot {
+    opacity: 1 !important;
+
+    transform:
+      translateX(-50%)
+      scale(1) !important;
+
+    box-shadow:
+      0 0 6px rgba(255, 255, 255, 0.65) !important;
+  }
+
+  .project-success-copy span {
+    opacity: 1 !important;
+
+    transform: none !important;
+    filter: none !important;
+  }
+
+
+  /*
+   * GLOBAL SMOOTH SCROLL
+   */
+
+  html {
+    scroll-behavior: auto !important;
   }
 }

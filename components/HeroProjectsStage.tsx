@@ -280,9 +280,6 @@ export default function HeroProjectsStage() {
           engineering it well.
         </p>
 
-        <p>
-          Thoughtful design. Serious engineering.
-        </p>
       </div>
 
      <div className="founder-meta">
@@ -341,6 +338,14 @@ export default function HeroProjectsStage() {
       {/* =====================================
           PREVIOUS <
           ===================================== */}
+
+      <div
+        className="lumen-stage-progress"
+        aria-hidden="true"
+      >
+        {String(activeScene + 1).padStart(2, "0")} /{" "}
+        {String(LAST_SCENE + 1).padStart(2, "0")}
+      </div>
 
       {activeScene > 0 && (
         <button
