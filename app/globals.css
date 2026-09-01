@@ -504,71 +504,6 @@ a {
 
 
 /* =========================================
-   CONTACT → FINAL LUMEN DOT JOURNEY
-   ========================================= */
-
-.contact-motion-layer {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 50;
-
-  pointer-events: none;
-
-  opacity: 0;
-
-  transition: opacity 220ms ease;
-}
-
-.contact-motion-dot {
-  position: absolute;
-
-  top: 0;
-  left: 0;
-
-  width: 50px;
-  height: 50px;
-
-  border-radius: 50%;
-
-  background: var(--color-text);
-
-  transform-origin: center;
-
-  will-change:
-    transform,
-    opacity;
-}
-
-
-/* Hide destination dots while
-   the travelling dots are active */
-
-.final-reveal-dot {
-  transition: opacity 120ms linear;
-}
-
-body.contact-dot-journey
-.final-reveal-dot {
-  opacity: 0;
-}
-
-
-/* ACCESSIBILITY */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .contact-motion-layer {
-    display: none;
-  }
-
-  .final-reveal-dot {
-    opacity: 1;
-  }
-
-}
-/* =========================================
    CONTACT — THE MARGIN
    ========================================= */
 
@@ -1401,16 +1336,6 @@ body.contact-dot-journey
 
 
   /* RESET DESKTOP POSITIONING */
-
-
- /* FINAL */
-
-.final-reveal {
-  padding:
-    40px
-    var(--page-padding-mobile);
-}
-
 }
 .project-start-button {
   position: relative;
@@ -1579,8 +1504,7 @@ body.contact-dot-journey
 .capabilities-section,
 .approach-section,
 .founder-section,
-.contact-section,
-.final-reveal {
+.contact-section {
   width: 100%;
 
   min-height: 100vh;
@@ -1959,7 +1883,7 @@ body.contact-dot-journey
     clip-path;
 
   animation:
-    lumenFinalReveal
+    lumenHeroStatementReveal
     1.15s
     cubic-bezier(0.16, 1, 0.3, 1)
     forwards;
@@ -1979,7 +1903,7 @@ body.contact-dot-journey
 }
 
 
-@keyframes lumenFinalReveal {
+@keyframes lumenHeroStatementReveal {
   0% {
     opacity: 0;
 
@@ -2605,96 +2529,6 @@ body.contact-dot-journey
 
 }
 
-/* =========================================
-   FINAL LUMEN
-   ========================================= */
-
-.final-reveal {
-  width: 100%;
-  min-height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-
-  background: var(--color-bg);
-}
-
-
-/* MAIN WORDMARK */
-
-.final-reveal-brand {
-  display: flex;
-  align-items: center;
-
-  font-family: "Courier New", Courier, monospace;
-
-  font-size: clamp(120px, 23vw, 360px);
-
-  font-weight: 400;
-
-  line-height: 0.9;
-
-  letter-spacing: -0.04em;
-
-  color: #111111;
-}
-
-
-/* LETTERS WITH DOTS */
-
-.final-reveal-letter {
-  position: relative;
-
-  display: inline-block;
-}
-
-
-/* DOTS */
-
-.final-reveal-dot {
-  position: absolute;
-
-  left: 50%;
-  bottom: -0.11em;
-
-  width: 0.035em;
-  height: 0.035em;
-
-  min-width: 6px;
-  min-height: 6px;
-
-  border-radius: 50%;
-
-  background: #111111;
-
-  transform: translateX(-50%);
-}
-
-
-/* HIDE THE SMALL PERSISTENT LOGO */
-
-body:has(.final-reveal.is-visible)
-.lumen-intro-hero
-.lumen-hero-brand {
-  opacity: 0;
-  pointer-events: none;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 800px) {
-
-  .final-reveal-brand {
-    font-size: 22vw;
-
-    letter-spacing: -0.04em;
-  }
-
-}
 /* =========================================
    PROJECTS — FEATURED REEL
    ========================================= */

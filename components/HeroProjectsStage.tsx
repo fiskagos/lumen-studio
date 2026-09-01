@@ -13,7 +13,6 @@ import ProjectsSection from "@/components/ProjectsSection";
 import CapabilitiesHeading from "@/components/CapabilitiesHeading";
 import CapabilitiesSection from "@/components/CapabilitiesSection";
 import ApproachStatement from "@/components/ApproachStatement";
-import ContactMotion from "@/components/ContactMotion";
 import ProjectStart from "@/components/ProjectStart";
 import FounderHeading from "@/components/FounderHeading";
 
@@ -321,7 +320,6 @@ export default function HeroProjectsStage() {
 
     {/* FLIPPING WORDS / ROWS */}
     <div className="lumen-final-motion">
-      <ContactMotion />
     </div>
 
     {/* START A PROJECT */}
