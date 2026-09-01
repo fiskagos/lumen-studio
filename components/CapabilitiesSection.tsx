@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const capabilities = [
   {
@@ -57,6 +57,38 @@ export default function CapabilitiesSection() {
     activeIndex !== null
       ? capabilities[activeIndex]
       : null;
+
+  useEffect(() => {
+    function handleCapabilitySelection(
+      event: Event,
+    ) {
+      const capability = (
+        event as CustomEvent<string>
+      ).detail;
+
+      const index = capabilities.findIndex(
+        (item) =>
+          item.title.toLowerCase() ===
+          capability.toLowerCase(),
+      );
+
+      if (index >= 0) {
+        setActiveIndex(index);
+      }
+    }
+
+    window.addEventListener(
+      "lumen:capability",
+      handleCapabilitySelection,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "lumen:capability",
+        handleCapabilitySelection,
+      );
+    };
+  }, []);
 
   return (
     <div className="capabilities-experience">

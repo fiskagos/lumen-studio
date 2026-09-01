@@ -69,6 +69,28 @@ export default function HeroProjectsStage() {
   }, [activeScene, moveTo]);
 
   /* =========================================
+     HERO CAPABILITY NAVIGATION
+     ========================================= */
+
+  useEffect(() => {
+    function handleCapabilityJump() {
+      moveTo(2);
+    }
+
+    window.addEventListener(
+      "lumen:capability",
+      handleCapabilityJump,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "lumen:capability",
+        handleCapabilityJump,
+      );
+    };
+  }, [moveTo]);
+
+  /* =========================================
      WHEEL / TRACKPAD
      ========================================= */
 

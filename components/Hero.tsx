@@ -53,18 +53,7 @@ export default function Hero() {
       }),
     );
 
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
 
-    document
-      .getElementById("capabilities")
-      ?.scrollIntoView({
-        behavior: reducedMotion
-          ? "auto"
-          : "smooth",
-        block: "start",
-      });
   }
 
   return (
