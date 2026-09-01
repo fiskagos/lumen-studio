@@ -7,14 +7,18 @@ import {
   useState,
 } from "react";
 
+
 import Hero from "@/components/Hero";
 import ProjectsSection from "@/components/ProjectsSection";
 import CapabilitiesHeading from "@/components/CapabilitiesHeading";
 import CapabilitiesSection from "@/components/CapabilitiesSection";
+import ApproachStatement from "@/components/ApproachStatement";
+import ContactMotion from "@/components/ContactMotion";
+import ProjectStart from "@/components/ProjectStart";
+import FounderHeading from "@/components/FounderHeading";
 
-type SceneIndex = 0 | 1 | 2;
-
-const LAST_SCENE: SceneIndex = 2;
+type SceneIndex = 0 | 1 | 2 | 3 | 4;
+const LAST_SCENE: SceneIndex = 4;
 
 export default function HeroProjectsStage() {
   const [activeScene, setActiveScene] =
@@ -70,74 +74,37 @@ export default function HeroProjectsStage() {
      ========================================= */
 
   useEffect(() => {
-    const stage = stageRef.current;
+  const stage = stageRef.current;
 
-    if (!stage) {
+  if (!stage) {
+    return;
+  }
+
+  function handleWheel(event: WheelEvent) {
+    event.preventDefault();
+
+    if (lockedRef.current) {
       return;
     }
 
-    function handleWheel(
-      event: WheelEvent,
-    ) {
-      if (lockedRef.current) {
-        event.preventDefault();
-        return;
-      }
-
-      /* NEXT SCENE */
-
-      if (
-        activeScene < LAST_SCENE &&
-        event.deltaY > 25
-      ) {
-        event.preventDefault();
-
-        goNext();
-
-        return;
-      }
-
-      /* PREVIOUS SCENE */
-
-      if (
-        activeScene > 0 &&
-        event.deltaY < -25 &&
-        window.scrollY <= 2
-      ) {
-        event.preventDefault();
-
-        goPrevious();
-
-        return;
-      }
-
-      /*
-       * On Capabilities:
-       * scroll down remains normal,
-       * so the page can continue
-       * vertically into Approach.
-       */
+    if (event.deltaY > 25) {
+      goNext();
+      return;
     }
 
-    stage.addEventListener(
-      "wheel",
-      handleWheel,
-      {
-        passive: false,
-      },
-    );
+    if (event.deltaY < -25) {
+      goPrevious();
+    }
+  }
 
-    return () => {
-      stage.removeEventListener(
-        "wheel",
-        handleWheel,
-      );
-    };
-  }, [
-    activeScene,
-    goNext,
-    goPrevious,
-  ]);
+  stage.addEventListener("wheel", handleWheel, {
+    passive: false,
+  });
+
+  return () => {
+    stage.removeEventListener("wheel", handleWheel);
+  };
+}, [goNext, goPrevious]);
 
   /* =========================================
      KEYBOARD
@@ -225,7 +192,7 @@ export default function HeroProjectsStage() {
               : "is-left"
         }`}
       >
-        <ProjectsSection
+       <ProjectsSection
           sceneActive={
             activeScene === 1
           }
@@ -237,11 +204,15 @@ export default function HeroProjectsStage() {
           ===================================== */}
 
       <div
-        className={`lumen-hp-scene lumen-hp-capabilities ${
-          activeScene === 2
-            ? "is-active"
-            : "is-right"
-        }`}
+       className={`lumen-hp-scene lumen-hp-capabilities ${
+  activeScene < 2
+    ? "is-right"
+    : activeScene === 2
+      ? "is-active"
+      : "is-left"
+}`}
+
+
       >
         <section
           id="capabilities"
@@ -258,6 +229,117 @@ export default function HeroProjectsStage() {
         </section>
       </div>
 
+{/* =====================================
+    FOUNDER / BIO
+    ===================================== */}
+
+<div
+  className={`lumen-hp-scene lumen-hp-founder ${
+    activeScene < 3
+      ? "is-right"
+      : activeScene === 3
+        ? "is-active"
+        : "is-left"
+  }`}
+>
+  <section className="founder-section">
+
+    <div className="founder-label">
+      THE PERSON BEHIND LUMEN
+    </div>
+
+    <div className="founder-content">
+
+      <FounderHeading />
+
+      <div className="founder-bio">
+        <p>
+          My background is in software engineering, but I&apos;ve
+          always been drawn to the space where technology, design
+          and human experience meet.
+        </p>
+
+        <p>
+          Years spent working across digital experience at
+          Netcentric and Adobe, and later building complex systems
+          in the pharmaceutical world, shaped the way I think about
+          technology: not just how things look, but how they work,
+          scale and last.
+        </p>
+
+        <p>
+          But I&apos;ve always been a creator at heart. There&apos;s
+          something remarkable about taking an idea that exists only
+          in someone&apos;s mind and giving it form, making something
+          that didn&apos;t exist before and could only belong to that
+          person.
+        </p>
+
+        <p>
+          I created Lumen to bring those two worlds together: the
+          freedom of creating something unique and the discipline of
+          engineering it well.
+        </p>
+
+        <p>
+          Thoughtful design. Serious engineering.
+        </p>
+      </div>
+
+     <div className="founder-meta">
+  <span className="founder-signature">
+    P.B.
+  </span>
+
+  <span className="founder-role">
+    FOUNDER · DESIGNER · ENGINEER
+  </span>
+</div>
+
+    </div>
+
+  </section>
+</div>
+{/* =====================================
+    APPROACH / CONTACT
+    ===================================== */}
+
+<div
+  className={`lumen-hp-scene lumen-hp-final ${
+    activeScene === 4
+      ? "is-active"
+      : "is-right"
+  }`}
+>
+
+  <section className="lumen-final-scene">
+
+    {/* MAIN STATEMENT */}
+    <div className="lumen-final-approach">
+      <ApproachStatement />
+    </div>
+
+    {/* FLIPPING WORDS / ROWS */}
+    <div className="lumen-final-motion">
+      <ContactMotion />
+    </div>
+
+    {/* START A PROJECT */}
+    <div className="lumen-final-project-start">
+      <ProjectStart />
+    </div>
+
+    {/* SAY HELLO */}
+    <div className="lumen-final-hello">
+      <span>OR JUST SAY HELLO</span>
+
+      <a href="mailto:hello@lumenstudio.com">
+        HELLO@LUMENSTUDIO.COM
+      </a>
+    </div>
+
+  </section>
+</div>
       {/* =====================================
           PREVIOUS <
           ===================================== */}

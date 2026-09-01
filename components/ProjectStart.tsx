@@ -1,6 +1,7 @@
 "use client";
 
 import {useState} from "react";
+import {createPortal} from "react-dom";
 import ProjectIntake from "./ProjectIntake";
 
 export default function ProjectStart() {
@@ -12,15 +13,24 @@ export default function ProjectStart() {
         type="button"
         className="project-start-button"
         onClick={() => setIsOpen(true)}
+        aria-label="Bring it to life"
       >
-        START A PROJECT
+        <span className="project-start-line project-start-line-1">
+          Bring it
+        </span>
+
+        <span className="project-start-line project-start-line-2">
+          to life
+        </span>
       </button>
 
-      {isOpen && (
-        <ProjectIntake
-          onClose={() => setIsOpen(false)}
-        />
-      )}
+      {isOpen &&
+        createPortal(
+          <ProjectIntake
+            onClose={() => setIsOpen(false)}
+          />,
+          document.body,
+        )}
     </>
   );
 }

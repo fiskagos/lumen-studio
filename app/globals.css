@@ -613,51 +613,7 @@ body.contact-dot-journey
 }
 
 
-/* PRIMARY ACTION — TOP RIGHT */
 
-.contact-primary {
-  position: absolute;
-  top: 70px;
-  left: var(--page-padding);
-
-  width: auto;
-
-  padding: 0;
-  border: 0;
-}
-
-.contact-primary .project-start-button {
-  font-size: clamp(18px, 1.4vw, 22px);
-  color: var(--color-text);
-}
-
-.contact-primary .project-start-button {
-  display: block;
-
-  color: var(--color-text);
-
-  font-size: clamp(34px, 2.8vw, 46px);
-  font-weight: 400;
-
-  line-height: 0.95;
-  letter-spacing: -0.055em;
-
-  text-align: left;
-
-  transition:
-    transform 240ms var(--ease-lumen),
-    text-shadow var(--motion-micro) ease;
-}
-
-.contact-primary .project-start-button:hover {
-  transform: translateX(10px);
-
-  color: var(--color-text);
-
-  text-shadow:
-    0.45px 0 var(--color-text),
-    -0.45px 0 var(--color-text);
-}
 
 
 /* SUPPORTING COPY */
@@ -718,89 +674,162 @@ body.contact-dot-journey
     text-shadow var(--motion-micro) ease;
 }
 
-
 /* =========================================
-   PROJECT INTAKE
+   PROJECT INTAKE — A4 NOTE
    ========================================= */
 
 .project-intake {
   position: fixed;
   inset: 0;
 
-  z-index: 9999;
+  z-index: 99999;
 
-  width: 100%;
-  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  padding:
-    32px
-    var(--page-padding)
-    48px;
+  padding: 34px;
+
+  background: rgba(240, 237, 229, 0.62);
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+
+  animation:
+    intakeBackdropIn
+    300ms ease
+    forwards;
+}
+
+
+/* =========================================
+   PAPER SHEET
+   ========================================= */
+
+.project-intake-sheet {
+  position: relative;
+
+  width: min(760px, 88vw);
+  height: min(86vh, 980px);
+
+  min-height: 620px;
 
   display: flex;
   flex-direction: column;
 
-  background: var(--color-bg);
-  color: var(--color-text);
+  padding:
+    38px
+    44px
+    42px;
+
+  background: #f7f2eb;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, 0.09);
+
+  box-shadow:
+    0 35px 90px rgba(0, 0, 0, 0.14),
+    0 8px 25px rgba(0, 0, 0, 0.06);
+
+  transform: rotate(-0.35deg);
+
+  overflow: hidden;
+
+  animation:
+    intakeSheetIn
+    520ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
 }
 
 
-/* TOP BAR */
+/* =========================================
+   HEADER
+   ========================================= */
 
 .intake-top {
+  width: 100%;
+
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.14em;
+  flex: 0 0 auto;
 }
 
+
+.intake-top-right {
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+}
+
+
+.intake-progress,
 .intake-close {
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  line-height: 1;
+  letter-spacing: 0.08em;
+
+  color: rgba(17, 17, 17, 0.58);
+}
+
+
+.intake-close {
+  appearance: none;
+
   padding: 0;
 
   border: 0;
 
   background: transparent;
-  color: var(--color-text);
-
-  font-family: "Courier New", Courier, monospace;
-  font-size: 10px;
-
-  letter-spacing: 0.12em;
 
   cursor: pointer;
 
-  opacity: 0.55;
-
   transition:
-    opacity 0.2s ease;
+    color 180ms ease;
 }
+
 
 .intake-close:hover {
-  opacity: 1;
+  color: #111111;
 }
-/* INTAKE LUMEN BRAND */
+
+
+/* =========================================
+   LUMEN BRAND
+   ========================================= */
 
 .intake-brand {
   display: flex;
-  align-items: center;
 
-  font-family: "Courier New", Courier, monospace;
-  font-size: 11px;
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: 12px;
   font-weight: 700;
 
   line-height: 1;
-  letter-spacing: 0.14em;
+
+  letter-spacing: 0.02em;
+
+  color: #111111;
 }
 
 
 .intake-brand-letter {
   position: relative;
-
-  display: inline-block;
 }
 
 
@@ -820,331 +849,501 @@ body.contact-dot-journey
   transform: translateX(-50%);
 }
 
-/* CONTENT */
+
+/* =========================================
+   CONTENT
+   ========================================= */
 
 .intake-content {
-  width: 100%;
-  max-width: 1100px;
+  flex: 1;
 
-  margin-top: auto;
+  min-height: 0;
+
+  padding-top: clamp(58px, 8vh, 90px);
+
+  display: flex;
+  flex-direction: column;
+
+  animation:
+    intakeStepIn
+    420ms
+    cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.intake-step {
-  margin-bottom: 30px;
+
+.intake-copy {
+  flex: 0 0 auto;
+}
+
+
+.intake-kicker {
+  display: block;
+
+  margin-bottom: 14px;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
 
   font-size: 10px;
-  letter-spacing: 0.12em;
+  font-weight: 700;
 
-  opacity: 0.4;
+  letter-spacing: 0.09em;
+
+  color: rgba(17, 17, 17, 0.45);
 }
+
 
 .intake-content h2 {
   margin: 0;
 
-  font-size: clamp(54px, 7vw, 108px);
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size:
+    clamp(44px, 5vw, 70px);
+
   font-weight: 400;
 
-  line-height: 0.9;
-  letter-spacing: -0.06em;
+  line-height: 0.92;
+  letter-spacing: -0.065em;
+
+  color: #111111;
 }
 
+
 .intake-question {
-  margin: 65px 0 24px;
+  margin:
+    22px
+    0
+    0;
 
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  max-width: 46ch;
 
-  opacity: 0.55;
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  line-height: 1.55;
+
+  color: rgba(17, 17, 17, 0.58);
 }
 
 
 /* =========================================
-   INTAKE STEP 01
+   SERVICES
    ========================================= */
 
-.intake-options {
+.intake-services {
   width: 100%;
 
-  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+  margin-bottom: 36px;
+
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 0 28px;
 }
 
-.intake-option {
-  position: relative;
+
+.intake-service {
+  appearance: none;
 
   width: 100%;
-  min-height: 58px;
+
+  padding:
+    18px
+    0
+    16px;
 
   display: flex;
   align-items: center;
-
-  padding: 18px 0;
+  justify-content: space-between;
 
   border: 0;
-  border-bottom: 1px solid var(--color-border);
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.18);
 
   background: transparent;
-  color: var(--color-muted);
 
-  font-family: "Courier New", Courier, monospace;
-  font-size: 11px;
-  font-weight: 400;
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
 
-  letter-spacing: 0.1em;
-  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 0.07em;
+
+  color: rgba(17, 17, 17, 0.55);
 
   cursor: pointer;
 
   transition:
-    color var(--motion-micro) ease,
-    text-shadow var(--motion-micro) ease;
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
-.intake-option:hover {
-  color: var(--color-text);
 
-  text-shadow:
-    0.35px 0 var(--color-text),
-    -0.35px 0 var(--color-text);
+.intake-service:hover,
+.intake-service.is-selected {
+  color: #111111;
+
+  border-color:
+    rgba(17, 17, 17, 0.72);
 }
 
-.intake-option::after {
-  content: "";
 
-  position: absolute;
-
-  left: 0;
-  bottom: 0;
-
-  width: 100%;
-  height: 1px;
-
-  background: var(--color-text);
-
-  transform: scaleX(0);
-  transform-origin: left center;
-
-  transition:
-    transform var(--motion-medium) ease;
-
-  pointer-events: none;
-}
-
-.intake-option:hover::after {
-  transform: scaleX(1);
+.intake-service-mark {
+  font-size: 11px;
 }
 
 
 /* =========================================
-   INTAKE STEP 02
+   TEXTAREA
    ========================================= */
 
 .intake-textarea {
   width: 100%;
-  min-height: 180px;
+  min-height: 200px;
 
-  margin-top: 25px;
-  padding: 24px 0;
+  margin-top: auto;
 
-  border: 0;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  padding:
+    20px
+    0;
 
-  outline: none;
   resize: none;
 
-  background: transparent;
-  color: var(--color-text);
+  border: 0;
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.22);
 
-  font-family: "Courier New", Courier, monospace;
-  font-size: clamp(14px, 1.15vw, 18px);
-  font-weight: 400;
+  border-bottom:
+    1px solid
+    rgba(17, 17, 17, 0.22);
+
+  outline: none;
+
+  background: transparent;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: 15px;
 
   line-height: 1.6;
-  letter-spacing: -0.02em;
+
+  color: #111111;
 }
+
 
 .intake-textarea::placeholder {
-  color: rgba(17, 17, 17, 0.25);
-}
-
-.intake-navigation {
-  width: 100%;
-
-  margin-top: 28px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.intake-nav-button {
-  position: relative;
-
-  padding: 10px 0;
-
-  border: 0;
-
-  background: transparent;
-  color: var(--color-muted);
-
-  font-family: "Courier New", Courier, monospace;
-  font-size: 10px;
-  font-weight: 400;
-
-  letter-spacing: 0.12em;
-
-  cursor: pointer;
-
-  transition:
-    color var(--motion-micro) ease,
-    text-shadow var(--motion-micro) ease;
-}
-
-.intake-nav-button:hover:not(:disabled) {
-  color: var(--color-text);
-
-  text-shadow:
-    0.35px 0 var(--color-text),
-    -0.35px 0 var(--color-text);
-}
-
-.intake-nav-button:disabled {
-  opacity: 0.25;
-  cursor: default;
+  color:
+    rgba(17, 17, 17, 0.32);
 }
 
 
 /* =========================================
-   INTAKE STEP 03
+   FIELDS
    ========================================= */
 
 .intake-fields {
   width: 100%;
 
-  margin-top: 60px;
+  margin-top: auto;
 
-  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
 }
 
+
 .intake-field {
+  appearance: none;
+
   width: 100%;
 
-  padding: 22px 0;
-
-  display: block;
+  padding:
+    18px
+    0;
 
   border: 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom:
+    1px solid
+    rgba(17, 17, 17, 0.18);
 
   outline: none;
 
   background: transparent;
-  color: var(--color-text);
 
-  font-family: "Courier New", Courier, monospace;
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
   font-size: 13px;
-  font-weight: 400;
 
-  letter-spacing: 0.04em;
+  color: #111111;
 }
+
+
+.intake-field:first-child {
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.18);
+}
+
 
 .intake-field::placeholder {
-  color: rgba(17, 17, 17, 0.45);
+  color:
+    rgba(17, 17, 17, 0.38);
 }
 
+
 .intake-field:focus {
-  border-bottom-color: var(--color-text);
+  border-color:
+    rgba(17, 17, 17, 0.72);
 }
 
 
 /* =========================================
-   PROJECT INTAKE — STEP 04
+   NAVIGATION
+   ========================================= */
+
+.intake-navigation {
+  width: 100%;
+
+  margin-top: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.intake-navigation-end {
+  justify-content: flex-end;
+
+  margin-top: 0;
+}
+
+
+.intake-nav-button,
+.intake-submit {
+  appearance: none;
+
+  padding:
+    10px
+    0;
+
+  border: 0;
+
+  background: transparent;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  color: #111111;
+
+  cursor: pointer;
+
+  transition:
+    opacity 180ms ease,
+    transform 220ms
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+.intake-nav-button:hover:not(:disabled),
+.intake-submit:hover {
+  transform:
+    translateX(3px);
+}
+
+
+.intake-nav-button:disabled {
+  opacity: 0.22;
+
+  cursor: default;
+}
+
+
+/* =========================================
+   SUMMARY
    ========================================= */
 
 .intake-summary {
   width: 100%;
 
-  margin-top: 60px;
+  margin-top: auto;
 
-  border-top: 1px solid var(--color-border);
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.18);
 }
+
 
 .intake-summary-row {
-  width: 100%;
-  min-height: 58px;
+  display: grid;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  grid-template-columns:
+    130px
+    minmax(0, 1fr);
 
-  padding: 18px 0;
+  gap: 24px;
 
-  border-bottom: 1px solid var(--color-border);
+  padding:
+    14px
+    0;
 
-  font-family: "Courier New", Courier, monospace;
+  border-bottom:
+    1px solid
+    rgba(17, 17, 17, 0.14);
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
   font-size: 11px;
 
-  letter-spacing: 0.1em;
+  line-height: 1.4;
 }
 
+
 .intake-summary-row span:first-child {
-  opacity: 0.45;
+  font-weight: 700;
+
+  color:
+    rgba(17, 17, 17, 0.42);
 }
+
 
 .intake-summary-row span:last-child {
   text-align: right;
 
-  color: var(--color-text);
+  color: #111111;
 }
 
 
-/* SEND PROJECT */
+/* =========================================
+   ANIMATION
+   ========================================= */
 
-.intake-submit {
-  position: relative;
+@keyframes intakeBackdropIn {
+  from {
+    opacity: 0;
+  }
 
-  padding: 0 0 6px;
-
-  border: 0;
-  background: transparent;
-
-  color: var(--color-text);
-
-  font-family: "Courier New", Courier, monospace;
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: 0.14em;
-
-  cursor: pointer;
+  to {
+    opacity: 1;
+  }
 }
 
 
-/* underline animation */
+@keyframes intakeSheetIn {
+  from {
+    opacity: 0;
 
-.intake-submit::after {
-  content: "";
+    transform:
+      translateY(24px)
+      scale(0.985)
+      rotate(-0.35deg);
+  }
 
-  position: absolute;
+  to {
+    opacity: 1;
 
-  left: 0;
-  bottom: 0;
-
-  width: 100%;
-  height: 1px;
-
-  background: var(--color-text);
-
-  transform: scaleX(0);
-  transform-origin: left center;
-
-  transition:
-    transform var(--motion-medium) cubic-bezier(0.22, 1, 0.36, 1);
+    transform:
+      translateY(0)
+      scale(1)
+      rotate(-0.35deg);
+  }
 }
 
-.intake-submit:hover::after {
-  transform: scaleX(1);
+
+@keyframes intakeStepIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 700px) {
+  .project-intake {
+    padding: 14px;
+  }
+
+  .project-intake-sheet {
+    width: 100%;
+    height: min(92vh, 820px);
+
+    min-height: 0;
+
+    padding:
+      28px
+      24px
+      30px;
+
+    transform: none;
+  }
+
+  .intake-content {
+    padding-top: 48px;
+
+    overflow-y: auto;
+  }
+
+  .intake-content h2 {
+    font-size:
+      clamp(40px, 12vw, 58px);
+  }
+
+  .intake-services {
+    grid-template-columns: 1fr;
+
+    margin-top: 54px;
+  }
+
+  .intake-summary-row {
+    grid-template-columns: 90px 1fr;
+  }
+}
+
+
+
+
 @media (max-width: 800px) {
 
   /* HERO */
@@ -1220,28 +1419,157 @@ body.contact-dot-journey
   padding: 0;
 
   background: transparent;
-  color: rgba(17, 17, 17, 0.65);
+  color: var(--color-text);
+
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 0.04em;
 
   font-family: "Courier New", Courier, monospace;
-  font-size: clamp(16px, 1.8vw, 28px);
+  font-size: clamp(28px, 3.2vw, 58px);
   font-weight: 400;
-
-  letter-spacing: -0.04em;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
 
   cursor: pointer;
 
   transition:
-    color var(--motion-micro) ease,
+    opacity var(--motion-micro) ease,
+    transform var(--motion-micro) ease,
     text-shadow var(--motion-micro) ease;
 }
 
-.project-start-button:hover {
-  color: var(--color-text);
+.project-start-line {
+  display: block;
+  white-space: nowrap;
+}
 
+.project-start-line-1 {
+  animation:
+    bringItIn
+    0.45s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    0.1s
+    forwards;
+}
+
+.project-start-line-2 {
+  animation:
+    toLifeIn
+    0.65s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    2s
+    forwards;
+}
+
+.project-start-line-2::before {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 14px);
+
+  width: clamp(18px, 2.6vw, 42px);
+  height: 1px;
+
+  background: currentColor;
+
+  opacity: 0;
+
+  transform:
+    translateY(-50%)
+    scaleX(0.35);
+
+  transform-origin: right center;
+
+  animation:
+    projectStartTrail
+    0.38s
+    ease-out
+    0.5s
+    forwards;
+}
+
+.project-start-button:hover {
   text-shadow:
     0.45px 0 var(--color-text),
     -0.45px 0 var(--color-text);
 }
+
+@keyframes projectStartLineOneIn {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes projectStartLineTwoBrakeIn {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateX(140px)
+      skewX(-10deg);
+
+    filter: blur(6px);
+  }
+
+  70% {
+    opacity: 1;
+
+    transform:
+      translateX(-10px)
+      skewX(2deg);
+
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      skewX(0deg);
+
+    filter: blur(0);
+  }
+}
+
+@keyframes projectStartTrail {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(-50%)
+      scaleX(0.35);
+  }
+
+  35% {
+    opacity: 0.45;
+
+    transform:
+      translateY(-50%)
+      scaleX(1);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-50%)
+      scaleX(1.35);
+  }
+}
+
 /* =========================================
    SECTION SCROLL SNAP
    ========================================= */
@@ -4197,4 +4525,1147 @@ html {
     translateY(-50%)
     translateX(22px)
     scale(0.96);
+}
+.lumen-hp-approach {
+  background: #f0ede5;
+}
+
+.lumen-hp-approach .approach-section {
+  width: 100%;
+  height: 100%;
+
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  margin: 0;
+
+  overflow: hidden;
+}
+/* =========================================
+   FINAL SCENE
+   ========================================= */
+
+.lumen-hp-final {
+  background: #f0ede5;
+}
+
+.lumen-final-scene {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background: #f0ede5;
+}
+
+
+/* =========================================
+   LET'S SEE WHERE IT GOES
+   ========================================= */
+
+.lumen-final-approach {
+  position: absolute;
+  top: 9%;
+  left: 50%;
+
+  width: min(1100px, 90vw);
+
+  transform: translateX(-50%);
+
+  text-align: center;
+  z-index: 20;
+}
+
+.lumen-final-approach h2 {
+  margin: 0;
+
+  font-family: "Courier New", Courier, monospace;
+
+  font-size: clamp(64px, 7vw, 112px);
+  font-weight: 400;
+
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+
+  text-align: center;
+}
+
+
+/* =========================================
+   FLIPPING MOTION
+   ========================================= */
+
+.lumen-final-motion {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 10;
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   START A PROJECT
+   ========================================= */
+
+.lumen-final-project-start {
+  position: absolute;
+
+  top: 54%;
+  left: 50%;
+
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: auto;
+
+  opacity: 0;
+
+  transform:
+    translate(-50%, -50%)
+    translateX(120vw);
+}
+/* =========================================
+   START A PROJECT — BRAKE ARRIVAL
+   ========================================= */
+
+.lumen-hp-final.is-active
+.lumen-final-project-start {
+  animation:
+    lumenProjectBrake
+    1100ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    650ms
+    forwards;
+}
+
+
+@keyframes lumenProjectBrake {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      translateX(110vw)
+      skewX(-10deg);
+
+    filter: blur(8px);
+  }
+
+  35% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      translateX(-55px)
+      skewX(-4deg);
+
+    filter: blur(3px);
+  }
+
+  52% {
+    transform:
+      translate(-50%, -50%)
+      translateX(18px)
+      skewX(2deg);
+
+    filter: blur(0);
+  }
+
+  68% {
+    transform:
+      translate(-50%, -50%)
+      translateX(-8px)
+      skewX(-1deg);
+  }
+
+  82% {
+    transform:
+      translate(-50%, -50%)
+      translateX(3px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      translateX(0)
+      skewX(0);
+
+    filter: blur(0);
+  }
+}
+.lumen-hp-final.is-active
+.lumen-final-project-start
+.project-start-button {
+  animation:
+    lumenProjectBrakeText
+    1100ms
+    ease
+    650ms
+    forwards;
+}
+
+
+@keyframes lumenProjectBrakeText {
+
+  0% {
+    letter-spacing: 0.22em;
+
+    text-shadow:
+      18px 0 rgba(17, 17, 17, 0.08),
+      36px 0 rgba(17, 17, 17, 0.04);
+  }
+
+  45% {
+    letter-spacing: 0.11em;
+
+    text-shadow:
+      8px 0 rgba(17, 17, 17, 0.08);
+  }
+
+  70% {
+    letter-spacing: 0.075em;
+
+    text-shadow: none;
+  }
+
+  100% {
+    letter-spacing: 0.08em;
+
+    text-shadow: none;
+  }
+}
+
+
+/* =========================================
+   SAY HELLO
+   ========================================= */
+
+.lumen-final-hello {
+  position: absolute;
+
+  right: clamp(32px, 4vw, 64px);
+  bottom: clamp(28px, 4vh, 48px);
+
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 7px;
+
+  font-family:
+    "Courier New",
+    Courier,
+    monospace;
+
+  text-align: right;
+}
+
+.lumen-final-hello span {
+  font-size: 10px;
+  font-weight: 400;
+
+  letter-spacing: 0.08em;
+
+  color: rgba(17, 17, 17, 0.46);
+}
+
+.lumen-final-hello a {
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  color: #111111;
+
+  text-decoration: none;
+}
+
+.lumen-final-hello a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+/* =========================================
+   PROJECT INTAKE — DESKTOP FIX
+   ========================================= */
+
+.project-intake {
+  position: fixed;
+  inset: 0;
+
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px;
+
+  background: rgba(240, 237, 229, 0.62);
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+
+/* A4-LIKE PAPER */
+
+.project-intake-sheet {
+  position: relative;
+
+  width: min(680px, 82vw) !important;
+  height: min(86vh, 930px) !important;
+
+  min-width: 620px;
+  min-height: 720px;
+
+  padding:
+    38px
+    44px
+    40px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #f7f2eb;
+
+  border: 1px solid rgba(17, 17, 17, 0.09);
+
+  box-shadow:
+    0 35px 90px rgba(0, 0, 0, 0.14),
+    0 8px 25px rgba(0, 0, 0, 0.06);
+
+  transform: rotate(-0.3deg);
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   TOP BAR
+   ========================================= */
+
+.intake-top {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 40px;
+}
+
+.intake-brand {
+  flex-shrink: 0;
+}
+
+.intake-top-right {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+
+  gap: 32px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   CONTENT
+   ========================================= */
+
+.intake-content {
+  width: 100%;
+  flex: 1;
+
+  padding-top: clamp(48px, 7vh, 76px);
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 0;
+}
+
+.intake-content h2 {
+  max-width: 100%;
+
+  margin: 0;
+
+  font-size: clamp(48px, 4.5vw, 68px);
+  line-height: 0.92;
+
+  letter-spacing: -0.065em;
+}
+
+
+/* Keep "What do you" together better */
+
+.intake-copy {
+  width: 100%;
+}
+
+.intake-question {
+  max-width: 44ch;
+}
+
+
+/* =========================================
+   SERVICES
+   ========================================= */
+
+.intake-services {
+  width: 100%;
+
+  margin-top: auto;
+  margin-bottom: 30px;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  column-gap: 36px;
+}
+
+.intake-service {
+  min-width: 0;
+
+  padding:
+    17px
+    0
+    15px;
+}
+
+.intake-service span:first-child {
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   NAV
+   ========================================= */
+
+.intake-navigation {
+  width: 100%;
+}
+
+.intake-navigation-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.lumen-hp-founder {
+  background: #f0ede5;
+}
+
+.lumen-hp-founder .founder-section {
+  width: 100%;
+  height: 100%;
+
+  min-height: 0;
+  margin: 0;
+
+  overflow: hidden;
+}
+/* =========================================
+   FOUNDER — REFINED LAYOUT
+   ========================================= */
+
+.lumen-hp-founder .founder-content {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+/* BIO — MOVE LEFT */
+
+.lumen-hp-founder .founder-bio {
+  position: absolute;
+
+  top: 15%;
+  left: 56%;
+
+  width: min(520px, 34vw);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+  line-height: 1.6;
+
+  color: rgba(17, 17, 17, 0.68);
+}
+
+.lumen-hp-founder .founder-bio p {
+ margin: 0 0 30px;
+   
+}
+
+
+/* =========================================
+   META — BOTTOM EDGE
+   ========================================= */
+
+.lumen-hp-founder .founder-meta {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 34px;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  padding:
+    0
+    38px;
+
+  box-sizing: border-box;
+
+  font-family: "Courier New", Courier, monospace;
+}
+
+
+/* P.B. — BOTTOM LEFT */
+
+.lumen-hp-founder .founder-signature {
+  font-size: 14px;
+  font-weight: 400;
+
+  letter-spacing: 0.04em;
+
+  color: rgba(17, 17, 17, 0.62);
+}
+
+
+/* ROLE — BOTTOM RIGHT */
+
+.lumen-hp-founder .founder-role {
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  text-align: right;
+
+  color: rgba(17, 17, 17, 0.55);
+}
+/* =========================================
+   FOUNDER — REFINED LAYOUT
+   ========================================= */
+
+.lumen-hp-founder .founder-content {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+
+.lumen-hp-founder .founder-bio {
+  position: absolute;
+
+  top: 16%;
+  left: 62%;
+
+  width: min(430px, 30vw);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+
+  color: rgba(17, 17, 17, 0.62);
+}
+
+.lumen-hp-founder .founder-bio p {
+  margin: 0 0 26px;
+}
+
+.lumen-hp-founder .founder-meta {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 34px;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  padding: 0 38px;
+
+  box-sizing: border-box;
+
+  font-family: "Courier New", Courier, monospace;
+}
+
+.lumen-hp-founder .founder-signature {
+  font-size: 14px;
+  font-weight: 400;
+
+  letter-spacing: 0.04em;
+
+  color: rgba(17, 17, 17, 0.62);
+}
+
+.lumen-hp-founder .founder-role {
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  text-align: right;
+
+  color: rgba(17, 17, 17, 0.55);
+}
+/* =========================================
+   FOUNDER — FINAL OVERRIDE
+   ========================================= */
+
+/* BIO */
+
+.lumen-hp-founder .founder-bio {
+  position: absolute !important;
+
+  top: 15% !important;
+  left: 52% !important;
+  right: auto !important;
+
+  width: 500px !important;
+  max-width: 36vw !important;
+
+  margin: 0 !important;
+  transform: none !important;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px !important;
+  line-height: 1.55 !important;
+
+  color: rgba(17, 17, 17, 0.68);
+}
+
+.lumen-hp-founder .founder-bio p {
+  margin: 0 0 24px !important;
+}
+
+
+/* BOTTOM META */
+
+.lumen-hp-founder .founder-meta {
+  position: absolute !important;
+
+  left: 38px !important;
+  right: 38px !important;
+  bottom: 34px !important;
+
+  width: auto !important;
+
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  transform: none !important;
+}
+
+
+/* P.B. */
+
+.lumen-hp-founder .founder-signature {
+  display: block !important;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px !important;
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+
+  color: rgba(17, 17, 17, 0.62);
+}
+
+
+/* ROLE */
+
+.lumen-hp-founder .founder-role {
+  display: block !important;
+
+  margin-left: auto !important;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px !important;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  text-align: right !important;
+
+  color: rgba(17, 17, 17, 0.55);
+}
+/* =========================================
+   PROJECT SUCCESS
+   ========================================= */
+
+.project-success {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #000;
+  color: #fff;
+
+  overflow: hidden;
+}
+
+.project-success-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.project-success-logo {
+  display: flex;
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(90px, 13vw, 210px);
+  font-weight: 400;
+  line-height: 0.85;
+  letter-spacing: -0.08em;
+}
+
+.project-success-letter {
+  position: relative;
+  color: #fff;
+}
+
+.project-success-dot {
+  position: absolute;
+
+  left: 50%;
+  bottom: -24px;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform: translateX(-50%);
+}
+
+.project-success-copy {
+  margin-top: 70px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-family: "Courier New", Courier, monospace;
+}
+
+.project-success-copy span:first-child {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.project-success-copy span:last-child {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.project-success-close {
+  position: absolute;
+
+  top: 34px;
+  right: 40px;
+
+  border: 0;
+  padding: 0;
+
+  background: transparent;
+  color: rgba(255, 255, 255, 0.45);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+}
+/* =========================================
+   LUMEN SUCCESS — NEON IGNITION
+   ========================================= */
+
+
+/* LETTERS START ALMOST OFF */
+
+.project-success-letter {
+  position: relative;
+
+  color: rgba(255, 255, 255, 0.055);
+
+  text-shadow: none;
+}
+
+
+/* DOTS START OFF */
+
+.project-success-dot {
+  opacity: 0;
+
+  background: #fff;
+
+  box-shadow: none;
+}
+
+
+/* =========================================
+   DOT 01 → L
+   ========================================= */
+
+.success-dot-1 {
+  animation:
+    successDotIgnite
+    520ms
+    cubic-bezier(.16, 1, .3, 1)
+    300ms
+    forwards;
+}
+
+.success-letter-l {
+  animation:
+    successLetterIgnite
+    700ms
+    cubic-bezier(.16, 1, .3, 1)
+    470ms
+    forwards;
+}
+
+
+/* =========================================
+   DOT 02 → M
+   ========================================= */
+
+.success-dot-2 {
+  animation:
+    successDotIgnite
+    520ms
+    cubic-bezier(.16, 1, .3, 1)
+    850ms
+    forwards;
+}
+
+.success-letter-m {
+  animation:
+    successLetterIgnite
+    700ms
+    cubic-bezier(.16, 1, .3, 1)
+    1020ms
+    forwards;
+}
+
+
+/* =========================================
+   DOT 03 → N
+   ========================================= */
+
+.success-dot-3 {
+  animation:
+    successDotIgnite
+    520ms
+    cubic-bezier(.16, 1, .3, 1)
+    1400ms
+    forwards;
+}
+
+.success-letter-n {
+  animation:
+    successLetterIgnite
+    700ms
+    cubic-bezier(.16, 1, .3, 1)
+    1570ms
+    forwards;
+}
+
+
+/* =========================================
+   U + E COMPLETE THE WORD
+   ========================================= */
+
+.success-letter-u {
+  animation:
+    successLetterIgnite
+    720ms
+    cubic-bezier(.16, 1, .3, 1)
+    1900ms
+    forwards;
+}
+
+.success-letter-e {
+  animation:
+    successLetterIgnite
+    720ms
+    cubic-bezier(.16, 1, .3, 1)
+    2020ms
+    forwards;
+}
+
+
+/* =========================================
+   WHOLE LOGO SETTLES
+   ========================================= */
+
+.project-success-logo {
+  animation:
+    successLogoSettle
+    1000ms
+    ease
+    2300ms
+    both;
+}
+
+
+/* =========================================
+   COPY
+   ========================================= */
+
+.project-success-copy span:first-child {
+  opacity: 0;
+
+  animation:
+    successCopyReveal
+    700ms
+    cubic-bezier(.16, 1, .3, 1)
+    2850ms
+    forwards;
+}
+
+.project-success-copy span:last-child {
+  opacity: 0;
+
+  animation:
+    successCopyReveal
+    700ms
+    cubic-bezier(.16, 1, .3, 1)
+    3150ms
+    forwards;
+}
+
+
+/* =========================================
+   NEON KEYFRAMES
+   ========================================= */
+
+@keyframes successDotIgnite {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      scale(.3);
+
+    box-shadow:
+      0 0 0
+      rgba(255, 255, 255, 0);
+  }
+
+  28% {
+    opacity: .25;
+
+    transform:
+      translateX(-50%)
+      scale(.7);
+  }
+
+  42% {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      scale(1.45);
+
+    box-shadow:
+      0 0 8px
+      rgba(255, 255, 255, .95),
+      0 0 24px
+      rgba(255, 255, 255, .7),
+      0 0 48px
+      rgba(255, 255, 255, .3);
+  }
+
+  55% {
+    opacity: .35;
+  }
+
+  68% {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      scale(1);
+
+    box-shadow:
+      0 0 6px
+      rgba(255, 255, 255, .85),
+      0 0 18px
+      rgba(255, 255, 255, .35);
+  }
+}
+
+
+@keyframes successLetterIgnite {
+
+  0% {
+    color:
+      rgba(255, 255, 255, .055);
+
+    text-shadow: none;
+  }
+
+  26% {
+    color:
+      rgba(255, 255, 255, .18);
+  }
+
+  38% {
+    color: #fff;
+
+    text-shadow:
+      0 0 5px
+      rgba(255, 255, 255, .95),
+
+      0 0 16px
+      rgba(255, 255, 255, .7),
+
+      0 0 40px
+      rgba(255, 255, 255, .35);
+  }
+
+  48% {
+    color:
+      rgba(255, 255, 255, .3);
+
+    text-shadow: none;
+  }
+
+  62% {
+    color: #fff;
+
+    text-shadow:
+      0 0 7px
+      rgba(255, 255, 255, .9),
+
+      0 0 24px
+      rgba(255, 255, 255, .45);
+  }
+
+  100% {
+    color:
+      rgba(255, 255, 255, .96);
+
+    text-shadow:
+      0 0 4px
+      rgba(255, 255, 255, .45),
+
+      0 0 14px
+      rgba(255, 255, 255, .15);
+  }
+}
+
+
+@keyframes successLogoSettle {
+
+  0% {
+    filter:
+      brightness(1);
+  }
+
+  35% {
+    filter:
+      brightness(1.45);
+
+    text-shadow:
+      0 0 22px
+      rgba(255, 255, 255, .2);
+  }
+
+  100% {
+    filter:
+      brightness(1);
+
+    text-shadow: none;
+  }
+}
+
+
+@keyframes successCopyReveal {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(7px);
+
+    filter:
+      blur(3px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+    filter:
+      blur(0);
+  }
 }
