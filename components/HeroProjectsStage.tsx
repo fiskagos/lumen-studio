@@ -1,5 +1,7 @@
 "use client";
 
+
+
 import {
   useCallback,
   useEffect,
@@ -266,42 +268,52 @@ export default function HeroProjectsStage() {
   <section className="founder-section">
 
     <div className="founder-label">
-      THE PERSON BEHIND LUMEN
+      BEHIND LUMEN
     </div>
 
     <div className="founder-content">
 
       <FounderHeading />
 
+      <div className="founder-photo-wrap">
+  <img
+    src="/founder/paula-founder.jpg"
+    alt="Founder of Lumen"
+    className="founder-photo"
+  />
+</div>
+
       <div className="founder-bio">
         <p>
-          My background is in software engineering, but I&apos;ve
-          always been drawn to the space where technology, design
-          and human experience meet.
+          I&apos;ve always been drawn to the moment an idea becomes
+          real.
         </p>
 
         <p>
-          Years spent working across digital experience at
-          Netcentric and Adobe, and later building complex systems
-          in the pharmaceutical world, shaped the way I think about
-          technology: not just how things look, but how they work,
-          scale and last.
+          Something can exist only in someone&apos;s mind, without a
+          name, a shape or a system around it. Then, slowly, it becomes
+          something another person can see, use and experience.
         </p>
 
         <p>
-          But I&apos;ve always been a creator at heart. There&apos;s
-          something remarkable about taking an idea that exists only
-          in someone&apos;s mind and giving it form, making something
-          that didn&apos;t exist before and could only belong to that
-          person.
+          My background is in software engineering. It taught me to
+          care about what happens beneath the surface: structure,
+          performance and whether something will still work when it
+          grows.
         </p>
 
         <p>
-          I created Lumen to bring those two worlds together: the
-          freedom of creating something unique and the discipline of
-          engineering it well.
+          But I&apos;ve always been a creator first.
         </p>
 
+        <p className="founder-bio-emphasis">
+          Lumen exists somewhere between those two instincts.
+        </p>
+
+        <p>
+          The freedom to make something that could only belong to you,
+          and the discipline to build it properly.
+        </p>
       </div>
 
      <div className="founder-meta">
